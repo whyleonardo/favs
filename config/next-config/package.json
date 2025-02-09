@@ -1,0 +1,19 @@
+{
+  "name": "@solistack/next-config",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "bun run rm -rf *.tsbuildinfo",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "8.37.1",
+    "@vercel/toolbar": "0.1.26",
+    "next-secure-headers": "2.2.0"
+  },
+  "devDependencies": {
+    "@solistack/env": "workspace:*",
+    "@solistack/ts-config": "workspace:*",
+    "next": "15.0.3"
+  }
+}

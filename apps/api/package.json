@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "1.0.50",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "tsup src --out-dir build",
+    "dev": "bun run --watch src/http/server.ts",
+    "start": "node build/http/server.cjs"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "1.2.0",
+    "@elysiajs/swagger": "1.2.0",
+    "@solistack/auth": "workspace:*",
+    "@solistack/db": "workspace:*",
+    "@solistack/env": "workspace:*",
+    "@solistack/ts-config": "workspace:*",
+    "elysia": "1.2.12",
+    "elysia-autoroutes": "0.5.0"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}

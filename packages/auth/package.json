@@ -1,0 +1,33 @@
+{
+  "name": "@solistack/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/auth.d.ts",
+      "default": "./dist/auth.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "bun run rm -rf dist *.tsbuildinfo",
+    "dev": "tsc -w -p tsconfig.build.json",
+    "gen": "bunx @better-auth/cli generate",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@solistack/db": "workspace:*",
+    "better-auth": "1.1.16"
+  },
+  "devDependencies": {
+    "@solistack/env": "workspace:*",
+    "@solistack/ts-config": "workspace:*",
+    "@types/node": "22.13.1",
+    "typescript": "5.7.3"
+  }
+}

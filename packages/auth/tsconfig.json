@@ -1,0 +1,7 @@
+{
+  "extends": ["@solistack/ts-config/react-library.json"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  }
+}

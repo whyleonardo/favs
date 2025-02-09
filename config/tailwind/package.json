@@ -1,0 +1,19 @@
+{
+  "name": "@solistack/tailwind",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "bun run rm -rf *.tsbuildinfo",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "clsx": "2.1.1",
+    "tailwind-merge": "2.5.4"
+  },
+  "devDependencies": {
+    "@solistack/ts-config": "workspace:*",
+    "@tailwindcss/typography": "0.5.15",
+    "fluid-tailwind": "1.0.3",
+    "tailwindcss": "3.4.14"
+  }
+}

@@ -1,0 +1,11 @@
+bun.lockb
+.prettierignore
+**/.next
+**/analyze
+
+.drizzle
+
+.env
+.env.*
+
+.gitignore

@@ -1,0 +1,43 @@
+{
+  "name": "@solistack/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "default": "./dist/schemas/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "bun run rm -rf dist *.tsbuildinfo",
+    "db:check": "drizzle-kit check",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:migrate:drop": "drizzle-kit drop",
+    "db:pull": "drizzle-kit introspect",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
+    "db:up": "drizzle-kit up",
+    "dev": "tsc -w -p tsconfig.build.json",
+    "typecheck": "tsc"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "0.10.4",
+    "drizzle-orm": "0.39.2",
+    "drizzle-zod": "0.7.0",
+    "postgres": "3.4.5"
+  },
+  "devDependencies": {
+    "@solistack/env": "workspace:*",
+    "@solistack/ts-config": "workspace:*",
+    "@types/node": "22.13.1",
+    "drizzle-kit": "0.30.4",
+    "typescript": "5.7.3"
+  }
+}

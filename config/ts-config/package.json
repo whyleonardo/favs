@@ -1,0 +1,16 @@
+{
+  "name": "@solistack/ts-config",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "files": [
+    "./base.json",
+    "./next.json",
+    "./react-library.json",
+    "./build.json"
+  ],
+  "scripts": {
+    "clean": "bun run rm -rf *.tsbuildinfo",
+    "typecheck": "tsc"
+  }
+}
