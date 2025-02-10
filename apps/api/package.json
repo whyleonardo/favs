@@ -3,9 +3,9 @@
   "version": "1.0.50",
   "module": "src/index.js",
   "scripts": {
-    "build": "bun build ./src --outdir ./build",
     "dev": "bun run --watch src/http/server.ts",
-    "start": "bun build/http/server.cjs"
+    "start": "bun build/http/server.js",
+    "tsup": "bun tsup src --out-dir build"
   },
   "dependencies": {
     "@elysiajs/cors": "1.2.0",
