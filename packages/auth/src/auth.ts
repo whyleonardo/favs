@@ -17,7 +17,11 @@ export const auth = betterAuth({
     github: {
       clientId: authEnv.GITHUB_OAUTH_CLIENT_ID,
       clientSecret: authEnv.GITHUB_OAUTH_CLIENT_SECRET,
+      redirectURI: authEnv.GITHUB_OAUTH_REDIRECT_URI,
     },
+  },
+  advanced: {
+    cookiePrefix: "favs-app",
   },
 })
 

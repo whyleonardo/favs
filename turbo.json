@@ -16,7 +16,14 @@
         ".env.production",
         ".env"
       ],
-      "outputs": ["dist/**", "./server"]
+      "outputs": ["dist/**", "./server"],
+      "env": [
+        "DATABASE_URL",
+        "GITHUB_OAUTH_REDIRECT_URI",
+        "GITHUB_OAUTH_CLIENT_SECRET",
+        "GITHUB_OAUTH_CLIENT_ID",
+        "BETTER_AUTH_SECRET"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
