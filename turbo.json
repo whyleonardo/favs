@@ -16,7 +16,7 @@
         ".env.production",
         ".env"
       ],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**", "./server"]
     },
     "lint": {
       "dependsOn": ["^lint"]

@@ -3,9 +3,9 @@
   "version": "1.0.50",
   "module": "src/index.js",
   "scripts": {
+    "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server ./src/http/server.ts",
     "dev": "bun run --watch src/http/server.ts",
-    "start": "bun build/http/server.js",
-    "tsup": "tsup src --out-dir build"
+    "start": "bun build/http/server.js"
   },
   "dependencies": {
     "@elysiajs/cors": "1.2.0",
