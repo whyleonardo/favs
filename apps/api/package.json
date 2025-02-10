@@ -4,7 +4,7 @@
   "module": "src/index.js",
   "scripts": {
     "dev": "bun run --watch src/http/server.ts",
-    "start": "./server"
+    "start": "bun build/http/server.cjs"
   },
   "dependencies": {
     "@elysiajs/cors": "1.2.0",
