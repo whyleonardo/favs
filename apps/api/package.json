@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "bun run --watch src/http/server.ts",
     "start": "bun build/http/server.js",
-    "tsup": "bun tsup src --out-dir build"
+    "tsup": "tsup src --out-dir build"
   },
   "dependencies": {
     "@elysiajs/cors": "1.2.0",
