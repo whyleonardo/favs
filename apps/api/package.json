@@ -3,7 +3,7 @@
   "version": "1.0.50",
   "module": "src/index.js",
   "scripts": {
-    "build": "bun run tsup src --out-dir build",
+    "build": "bun build ./src --outdir ./build",
     "dev": "bun run --watch src/http/server.ts",
     "start": "bun build/http/server.cjs"
   },
@@ -14,8 +14,7 @@
     "@solistack/db": "workspace:*",
     "@solistack/env": "workspace:*",
     "@solistack/ts-config": "workspace:*",
-    "elysia": "1.2.12",
-    "elysia-autoroutes": "0.5.0"
+    "elysia": "1.2.12"
   },
   "devDependencies": {
     "bun-types": "latest"
