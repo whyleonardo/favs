@@ -22,7 +22,8 @@
         "GITHUB_OAUTH_REDIRECT_URI",
         "GITHUB_OAUTH_CLIENT_SECRET",
         "GITHUB_OAUTH_CLIENT_ID",
-        "BETTER_AUTH_SECRET"
+        "BETTER_AUTH_SECRET",
+        "ORIGINS"
       ]
     },
     "lint": {

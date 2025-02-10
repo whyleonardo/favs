@@ -10,6 +10,9 @@ export const authEnv = createEnv({
   server: {
     BETTER_AUTH_SECRET: z.string().min(1),
     GITHUB_OAUTH_REDIRECT_URI: z.string().url(),
+    ORIGINS: z
+      .string()
+      .transform((value) => z.array(z.string().url()).parse(value.split(","))),
     GITHUB_OAUTH_CLIENT_SECRET: z.string().min(1),
     GITHUB_OAUTH_CLIENT_ID: z.string().min(1),
   },
