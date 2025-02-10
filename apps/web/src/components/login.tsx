@@ -1,6 +1,7 @@
 "use client"
 
 import { signIn } from "@solistack/auth/client"
+import { env } from "@solistack/env/web"
 
 export const Login = () => {
   return (
@@ -9,7 +10,7 @@ export const Login = () => {
       onClick={async () => {
         await signIn.social({
           provider: "github",
-          callbackURL: "http://localhost:3000",
+          callbackURL: env.NEXT_PUBLIC_APP_BASE_URL,
         })
       }}
     >
