@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@neondatabase/serverless": "0.10.4",
+    "@paralleldrive/cuid2": "2.2.2",
     "drizzle-orm": "0.39.2",
     "drizzle-zod": "0.7.0",
     "postgres": "3.4.5"
