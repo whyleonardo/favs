@@ -12,7 +12,7 @@ import { Elysia } from "elysia"
 export const app = new Elysia()
   .use(
     cors({
-      origin: apiEnv.ORIGINS,
+      origin: [apiEnv.WEB_APP_URL],
       credentials: true,
     })
   )
