@@ -10,7 +10,7 @@ export const Login = () => {
       onClick={async () => {
         await signIn.social({
           provider: "github",
-          callbackURL: env.NEXT_PUBLIC_APP_BASE_URL,
+          callbackURL: "/",
         })
       }}
     >
