@@ -1,6 +1,6 @@
+import { env as envClient } from "@grek/env/web/client"
+import { env } from "@grek/env/web/server"
 import { init } from "@sentry/nextjs"
-import { env as envClient } from "@solistack/env/web/client"
-import { env } from "@solistack/env/web/server"
 
 const opts = {
   dsn: envClient.NEXT_PUBLIC_SENTRY_DSN,

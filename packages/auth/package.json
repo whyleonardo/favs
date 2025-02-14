@@ -1,5 +1,5 @@
 {
-  "name": "@solistack/auth",
+  "name": "@grek/auth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -21,12 +21,12 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@solistack/db": "workspace:*",
+    "@grek/db": "workspace:*",
     "better-auth": "1.1.16"
   },
   "devDependencies": {
-    "@solistack/env": "workspace:*",
-    "@solistack/ts-config": "workspace:*",
+    "@grek/env": "workspace:*",
+    "@grek/ts-config": "workspace:*",
     "@types/node": "22.13.1",
     "typescript": "5.7.3"
   }

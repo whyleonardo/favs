@@ -1,4 +1,4 @@
-import { env } from "@solistack/env/web"
+import { env } from "@grek/env/web"
 
 import { createAuthClient } from "better-auth/react"
 

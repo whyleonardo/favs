@@ -1,9 +1,9 @@
-import { createSecureHeaders } from "next-secure-headers"
 import type { NextConfig } from "next/types"
 
+import { env } from "@grek/env/web/server"
 import { withSentryConfig } from "@sentry/nextjs"
-import { env } from "@solistack/env/web/server"
 import withVercelToolbar from "@vercel/toolbar/plugins/next"
+import { createSecureHeaders } from "next-secure-headers"
 
 const openTelemetryModule = /@opentelemetry\/instrumentation/
 

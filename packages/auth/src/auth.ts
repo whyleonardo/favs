@@ -1,6 +1,6 @@
-import { db } from "@solistack/db"
-import { authEnv } from "@solistack/env/auth"
-import { env } from "@solistack/env/web"
+import { db } from "@grek/db"
+import { authEnv } from "@grek/env/auth"
+import { env } from "@grek/env/web"
 
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"

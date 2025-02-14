@@ -1,5 +1,5 @@
 {
-  "extends": "@solistack/ts-config/react-library.json",
+  "extends": "@grek/ts-config/react-library.json",
   "compilerOptions": {
     "baseUrl": "."
   },

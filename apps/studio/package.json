@@ -5,7 +5,7 @@
     "dev": "drizzle-kit studio --port=3005"
   },
   "dependencies": {
-    "@solistack/env": "workspace:*"
+    "@grek/env": "workspace:*"
   },
   "devDependencies": {
     "drizzle-kit": "0.28.0"

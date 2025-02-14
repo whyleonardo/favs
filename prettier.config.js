@@ -17,7 +17,7 @@ const config = {
     "<TYPES>^[.]",
     "<BUILTIN_MODULES>",
     "<THIRD_PARTY_MODULES>",
-    "^@solistack/(.*)$",
+    "^@grek/(.*)$",
     "^@/(.*)$",
     "^(?!next|react)[a-z]",
     "^[./]",

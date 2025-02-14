@@ -1,4 +1,4 @@
-import { dbEnv } from "@solistack/env/db"
+import { dbEnv } from "@grek/env/db"
 
 import { defineConfig } from "drizzle-kit"
 

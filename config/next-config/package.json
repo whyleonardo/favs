@@ -1,5 +1,5 @@
 {
-  "name": "@solistack/next-config",
+  "name": "@grek/next-config",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -12,8 +12,8 @@
     "next-secure-headers": "2.2.0"
   },
   "devDependencies": {
-    "@solistack/env": "workspace:*",
-    "@solistack/ts-config": "workspace:*",
+    "@grek/env": "workspace:*",
+    "@grek/ts-config": "workspace:*",
     "next": "15.0.3"
   }
 }

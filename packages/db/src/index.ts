@@ -1,6 +1,5 @@
+import { dbEnv } from "@grek/env/db"
 import { neon } from "@neondatabase/serverless"
-
-import { dbEnv } from "@solistack/env/db"
 
 import { drizzle } from "drizzle-orm/neon-http"
 
