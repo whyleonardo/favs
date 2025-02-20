@@ -4,10 +4,16 @@ import { env } from "@grek/env/web"
 
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { openAPI } from "better-auth/plugins"
 
 export const auth = betterAuth({
   trustedOrigins: [env.NEXT_PUBLIC_APP_BASE_URL],
   secret: authEnv.BETTER_AUTH_SECRET,
+  plugins: [
+    openAPI({
+      path: "/docs",
+    }),
+  ],
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -18,7 +24,6 @@ export const auth = betterAuth({
     github: {
       clientId: authEnv.GITHUB_OAUTH_CLIENT_ID,
       clientSecret: authEnv.GITHUB_OAUTH_CLIENT_SECRET,
-      redirectURI: authEnv.GITHUB_OAUTH_REDIRECT_URI,
     },
   },
   advanced: {

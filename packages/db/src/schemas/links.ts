@@ -32,5 +32,3 @@ export const insertLinksSchema = createSelectSchema(links, {
   url: z.string().url({ message: "The url must be a valid url" }),
   description: z.string().optional(),
 })
-
-// zsp9vy7lsvw23bxy8lrzn1ya

@@ -26,12 +26,12 @@
     "@biomejs/biome": "1.9.4",
     "@grek/ts-config": "workspace:*",
     "@trivago/prettier-plugin-sort-imports": "5.2.2",
-    "prettier": "3.4.2",
+    "prettier": "3.5.1",
     "prettier-plugin-packagejson": "2.5.8",
     "prettier-plugin-tailwindcss": "0.6.11",
-    "turbo": "2.4.1",
+    "turbo": "2.4.2",
     "typescript": "5.7.3",
-    "ultracite": "4.1.18"
+    "ultracite": "4.1.19"
   },
   "packageManager": "bun@1.1.27",
   "engines": {
