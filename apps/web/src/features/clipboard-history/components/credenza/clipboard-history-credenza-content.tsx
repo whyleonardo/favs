@@ -18,20 +18,18 @@ export const ClipboardHistoryCredenzaContent = () => {
   const [activeStep, setActiveStep] = useState<number>(1)
 
   return (
-    <CredenzaContent>
+    <CredenzaContent className="!w-[1500px]">
       <CredenzaHeader>
         <CredenzaTitle>we detected a link in your clipboard</CredenzaTitle>
       </CredenzaHeader>
-      <ResizablePanel>
-        {createNewLinkSteps.map((step) => (
-          <div
-            key={step.id}
-            className={cn(step.index !== activeStep && "hidden")}
-          >
-            {step.component({ setActiveStep })}
-          </div>
-        ))}
-      </ResizablePanel>
+      {createNewLinkSteps.map((step) => (
+        <div
+          key={step.id}
+          className={cn(step.index !== activeStep && "hidden")}
+        >
+          {step.component({ setActiveStep })}
+        </div>
+      ))}
     </CredenzaContent>
   )
 }

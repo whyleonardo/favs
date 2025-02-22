@@ -12,15 +12,18 @@ import { useStore } from "@/hooks/use-store"
 import { clipboardStore } from "@/store/clipboard-store"
 
 export const Clipboard = () => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
+  const useClipboard = useStore(clipboardStore, (state) => state)
 
   useEffect(() => {
     getClipboard().then((clipboard) => {
       if (clipboard) {
+        useClipboard?.setClipboardHistory(clipboard)
+
         setOpen(true)
       }
     })
-  }, [])
+  }, [useClipboard?.setClipboardHistory])
 
   return (
     <>

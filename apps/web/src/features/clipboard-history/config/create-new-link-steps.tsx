@@ -12,8 +12,6 @@ export const createNewLinkSteps = [
   {
     index: 1,
     id: "ask-creation",
-    title: "Create a new link",
-    description: "Create a new link",
     component: ({
       setActiveStep,
     }: {
@@ -21,7 +19,7 @@ export const createNewLinkSteps = [
     }) => {
       return (
         <>
-          <CredenzaBody>
+          <CredenzaBody className="mb-6">
             <p>create a new link with the url on your clipboard?</p>
           </CredenzaBody>
           <CredenzaFooter>
@@ -39,9 +37,7 @@ export const createNewLinkSteps = [
   },
   {
     index: 2,
-    id: "create-new-lin1k",
-    title: "Create a new link",
-    description: "Create a new link",
+    id: "link-creation",
     component: () => {
       return <CreateLinkForm />
     },

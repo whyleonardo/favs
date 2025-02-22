@@ -21,12 +21,7 @@ const route = createRoute({
               .string()
               .min(3, { message: "Title must be at least 3 characters" }),
             url: z.string().url(),
-            description: z
-              .string()
-              .min(10, {
-                message: "Description must be at least 10 characters",
-              })
-              .optional(),
+            description: z.string().optional(),
             tags: z.array(z.string().cuid2()).optional(),
           }),
         },

@@ -23,7 +23,7 @@ export const ResizablePanel = ({ children }: PropsWithChildren) => {
   const { ref, height } = useResizeObserver<HTMLDivElement>()
   return (
     <motion.div
-      animate={{ height: height ?? "auto" }}
+      // animate={{ height: height ?? "auto" }}
       initial={false}
       className="relative w-full overflow-hidden"
     >

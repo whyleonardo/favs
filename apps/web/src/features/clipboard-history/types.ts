@@ -1,12 +1,21 @@
-import { insertLinksSchema } from "@grek/db/schemas"
+import { z } from "zod"
 
-import type { z } from "zod"
-
-const schema = insertLinksSchema.pick({
-  title: true,
-  url: true,
-  description: true,
+export const createLinkSchema = z.object({
+  title: z
+    .string()
+    .min(3, { message: "The link title must be at least 3 characters" }),
+  url: z.string().url({ message: "The url must be a valid url" }),
+  description: z.optional(z.string()),
+  tags: z
+    .array(
+      z.object({
+        id: z.string(),
+        text: z
+          .string()
+          .min(3, { message: "The tag must be at least 3 characters" }),
+      })
+    )
+    .optional(),
 })
 
-//@ts-expect-error - missing types
-export type CreateLinkFormData = z.infer<typeof schema>
+export type CreateLinkFormData = z.infer<typeof createLinkSchema>

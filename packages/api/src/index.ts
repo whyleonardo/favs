@@ -10,6 +10,7 @@ import { fetchLinks } from "./http/routes/links/fetch-links"
 import { getLinkById } from "./http/routes/links/get-link-by-id"
 import { updateLink } from "./http/routes/links/update-link"
 import { createTag } from "./http/routes/tags/create-tag"
+import { deleteTag } from "./http/routes/tags/delete-tag"
 import { fetchTags } from "./http/routes/tags/fetch-tags"
 
 export const honoApp = new OpenAPIHono().basePath("/api")
@@ -39,5 +40,6 @@ const routes = honoApp
   .route("/links", updateLink)
   .route("/tags", createTag)
   .route("/tags", fetchTags)
+  .route("/tags", deleteTag)
 
 export type AppType = typeof routes

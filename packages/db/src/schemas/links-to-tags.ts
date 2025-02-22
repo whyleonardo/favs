@@ -9,10 +9,10 @@ export const linksToTags = pgTable(
   {
     linkId: text("link_id")
       .notNull()
-      .references(() => links.id),
+      .references(() => links.id, { onDelete: "cascade" }),
     tagId: text("tag_id")
       .notNull()
-      .references(() => tags.id),
+      .references(() => tags.id, { onDelete: "cascade" }),
   },
   (table) => [primaryKey({ columns: [table.linkId, table.tagId] })]
 )
