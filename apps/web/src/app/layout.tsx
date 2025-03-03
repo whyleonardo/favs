@@ -27,7 +27,7 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
         />
       </head>
       <body vaul-drawer-wrapper="" className={cn(fontSans, fontMono)}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <QueryProvider>
             {children}
 

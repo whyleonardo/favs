@@ -5,19 +5,20 @@ words:
   - clsx
   - cmdk
   - embla
+  - emblor
+  - grek
+  - hono
   - hookform
   - lucide
   - lucide-react
-  - hono
   - neondatabase
   - nextjs
   - openapi
-  - grek
-  - sonner
   - packagejson
-  - pageview
   - pageleave
+  - pageview
   - posthog
+  - sonner
   - tanstack
   - trivago
   - turbopack

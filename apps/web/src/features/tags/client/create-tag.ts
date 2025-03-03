@@ -1,18 +1,16 @@
 import { client } from "@grek/api/rpc"
 
+import type { InferRequestType, InferResponseType } from "hono"
 import { toast } from "sonner"
 
-interface CreateTagParams {
-  icon: string
-  name: string
-}
+export type CreateTagRequest = InferRequestType<typeof client.api.tags.$post>
+export type CreateTagResponse = InferResponseType<typeof client.api.tags.$post>
 
-export async function createTag({ icon, name }: CreateTagParams) {
+export async function createTag({
+  json,
+}: CreateTagRequest): Promise<CreateTagResponse> {
   const response = await client.api.tags.$post({
-    json: {
-      icon,
-      name,
-    },
+    json,
   })
 
   //@ts-expect-error - missing response type
@@ -28,9 +26,7 @@ export async function createTag({ icon, name }: CreateTagParams) {
     toast.error("Tag already exists!")
   }
 
-  if (response.status === 201) {
-    const data = await response.json()
+  const data = await response.json()
 
-    return data
-  }
+  return data
 }

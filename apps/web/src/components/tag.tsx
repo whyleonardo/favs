@@ -14,12 +14,6 @@ interface TagContainerProps {
   children: ReactNode
 }
 
-const icons = {
-  option: LucideAlarmCheck,
-  shadcn: LucideActivity,
-  new: LucideActivity,
-}
-
 const TagInput = () => {
   const { data: tags, isLoading } = useFetchTags()
   const [value, setValue] = useState("")

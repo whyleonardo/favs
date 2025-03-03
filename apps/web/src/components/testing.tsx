@@ -1,0 +1,494 @@
+"use client"
+
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  createContext,
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react"
+
+import { createId } from "@paralleldrive/cuid2"
+import type { Noop, RefCallBack } from "react-hook-form"
+
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+  type IconType,
+  type TagIconOption,
+  tagIconsOptions,
+} from "@/config/tag-icons-options"
+import { useCreateTag } from "@/features/tags/queries/use-create-tag"
+import { useFetchTags } from "@/features/tags/queries/use-fetch-tags"
+import type { Tag } from "@/features/tags/types"
+import { cn } from "@/lib/utils"
+
+import { Command as CommandPrimitive } from "cmdk"
+import { LucidePlus, LucideSearch } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
+import { useEventListener } from "usehooks-ts"
+
+import { CommandTagItem } from "./command-tag-item"
+import { Input } from "./ui/input"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip"
+
+interface TagCreatorContext {
+  icon: TagIconOption
+  setIcon: (newIcon: TagIconOption) => void
+  selectedTags: Tag[]
+  setSelectedTags: Dispatch<SetStateAction<Tag[]>>
+  openCommand: boolean
+  setOpenCommand: () => void
+}
+
+export const TagCreatorContext = createContext<TagCreatorContext | null>(null)
+
+export const useTagCreator = () => {
+  const context = useContext(TagCreatorContext)
+
+  if (!context) {
+    throw new Error("useTagCreator must be used within a TagCreatorProvider.")
+  }
+
+  return context
+}
+
+const TagCreatorProvider = ({ children }: { children: ReactNode }) => {
+  const [icon, setIcon] = useState<TagIconOption>("devTools")
+
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([])
+  const [openCommand, _setOpenCommand] = useState(false)
+
+  const setOpenCommand = useCallback(() => {
+    _setOpenCommand((oldValue) => !oldValue)
+  }, [])
+
+  const contextValue = useMemo(
+    () => ({
+      icon,
+      setIcon,
+      selectedTags,
+      setSelectedTags,
+      openCommand,
+      setOpenCommand,
+    }),
+    [icon, selectedTags, openCommand, setOpenCommand]
+  )
+
+  return <TagCreatorContext value={contextValue}>{children}</TagCreatorContext>
+}
+
+const TagCreator = memo(({ children }: { children: ReactNode }) => {
+  const { selectedTags } = useTagCreator()
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex w-full items-center gap-2">{children}</div>
+
+      <div className="flex max-w-full flex-wrap items-center gap-1.5">
+        {selectedTags.map((tag) => (
+          <TagCreatorSelectedItem key={tag.id} tag={tag} />
+        ))}
+      </div>
+    </div>
+  )
+})
+
+interface TagCreatorCommandProps {
+  disabled?: boolean | undefined
+  name: "tags"
+  onBlur: Noop
+  onChange: (value: string[]) => void
+  ref: RefCallBack
+  required?: boolean | undefined
+  value: string[] | undefined
+}
+
+const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
+  const { selectedTags, openCommand, setOpenCommand } = useTagCreator()
+
+  const [tagNameValue, _setTagNameValue] = useState("")
+
+  const setTagNameValue = useCallback(
+    (value: string) => _setTagNameValue(value),
+    []
+  )
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: pass onChange as effect dep, causes infinite loops on app
+  useEffect(() => {
+    onChange(selectedTags.map((tag) => tag.id))
+  }, [selectedTags])
+
+  return (
+    <CommandDialog open={openCommand} onOpenChange={setOpenCommand}>
+      <TagCreatorCommandHeader>
+        <TagCreatorCommandIconSelectPopover />
+        <TagCreatorCommandInput
+          name={name}
+          value={tagNameValue}
+          setTagNameValue={setTagNameValue}
+          placeholder="Search tags or create new one..."
+        />
+      </TagCreatorCommandHeader>
+
+      <TagCreatorCommandContent
+        tagNameValue={tagNameValue}
+        setTagNameValue={setTagNameValue}
+      />
+    </CommandDialog>
+  )
+}
+
+const TagCreatorCommandTrigger = memo(() => {
+  const { setOpenCommand } = useTagCreator()
+
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      className="text-muted-foreground hover:bg-muted-foreground/5 w-full justify-start text-xs"
+      onClick={() => setOpenCommand()}
+    >
+      <LucidePlus /> Add tags
+    </Button>
+  )
+})
+
+const TagCreatorCommandHeader = ({ children }: { children: ReactNode }) => {
+  return (
+    <div
+      data-slot="command-input-wrapper"
+      className="flex h-9 items-center gap-2 border-b px-3"
+    >
+      {children}
+    </div>
+  )
+}
+
+const TagCreatorCommandIconSelectPopover = () => {
+  const [openPopover, setOpenPopover] = useState(false)
+  const [filterIconsValue, _setFilterIconsValue] = useState("")
+
+  const { icon, setIcon } = useTagCreator()
+  const SelectedIcon = useMemo(
+    () => motion.create(tagIconsOptions[icon]),
+    [icon]
+  )
+
+  const setFilterIconsValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      _setFilterIconsValue(event.target.value),
+    []
+  )
+
+  const icons = Object.entries(tagIconsOptions)
+    .reduce(
+      (acc, [key, value]) => {
+        acc.push({
+          name: key as TagIconOption,
+          icon: value as IconType,
+        })
+
+        return acc
+      },
+      [] as { name: TagIconOption; icon: IconType }[]
+    )
+    .filter((icon) =>
+      filterIconsValue !== ""
+        ? icon.name.toLowerCase().includes(filterIconsValue.toLowerCase())
+        : icon
+    )
+
+  const onHandleChangeIcon = (iconName: TagIconOption) => {
+    return () => {
+      setIcon(iconName)
+      setOpenPopover(false)
+    }
+  }
+
+  return (
+    <Popover open={openPopover} onOpenChange={setOpenPopover}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="size-8 min-w-8 rounded-full"
+        >
+          <AnimatePresence>
+            <SelectedIcon
+              initial={{ opacity: 0, scale: 0.1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+            />
+          </AnimatePresence>
+        </Button>
+      </PopoverTrigger>
+
+      <PopoverContent
+        className="w-64"
+        side="top"
+        align="start"
+        sideOffset={16}
+        alignOffset={-12}
+      >
+        <div className="relative">
+          <Input
+            value={filterIconsValue}
+            onChange={setFilterIconsValue}
+            className="border-muted-foreground/10 peer ps-9 text-xs placeholder:text-xs"
+            placeholder="search icon"
+            type="text"
+          />
+          <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+            <LucideSearch className="size-4" aria-hidden="true" />
+          </div>
+        </div>
+
+        <ScrollArea className="h-fit w-full rounded-md">
+          <div className="mt-2 flex flex-wrap gap-2">
+            {icons.map(({ icon, name }) => {
+              const Icon = icon
+
+              return (
+                <TooltipProvider key={name}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="rounded-full"
+                        onClick={onHandleChangeIcon(name)}
+                      >
+                        {/* @ts-ignore */}
+                        <Icon className="size-4" />
+                      </Button>
+                    </TooltipTrigger>
+
+                    <TooltipContent side="bottom">{name}</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )
+            })}
+          </div>
+        </ScrollArea>
+      </PopoverContent>
+    </Popover>
+  )
+}
+
+const TagCreatorCommandInput = ({
+  className,
+  setTagNameValue,
+  value,
+  ...props
+}: ComponentProps<typeof CommandPrimitive.Input> & {
+  setTagNameValue: (value: string) => void
+}) => {
+  const { setSelectedTags, icon } = useTagCreator()
+
+  const { mutate } = useCreateTag()
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const onPressEnterOnInput = (event: KeyboardEvent) => {
+    if (event.code === "Enter" && value) {
+      const id = createId()
+
+      mutate({
+        json: {
+          id,
+          name: value,
+          icon,
+        },
+      })
+
+      setSelectedTags((prev) => [
+        ...prev,
+        {
+          icon,
+          id,
+          name: value,
+        },
+      ])
+
+      setTagNameValue("")
+    }
+  }
+
+  //@ts-expect-error - usehooks-ts strange error
+  useEventListener("keydown", onPressEnterOnInput, inputRef)
+
+  return (
+    <CommandPrimitive.Input
+      ref={inputRef}
+      data-slot="command-input"
+      value={value}
+      onValueChange={setTagNameValue}
+      className={cn(
+        "placeholder:text-muted-foreground outline-hidden flex h-10 w-full rounded-md bg-transparent py-3 text-sm placeholder:text-sm disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+const TagCreatorCommandContent = ({
+  tagNameValue,
+  setTagNameValue,
+}: {
+  tagNameValue: string
+  setTagNameValue: (value: string) => void
+}) => {
+  const { selectedTags, setSelectedTags, icon } = useTagCreator()
+  const { mutate } = useCreateTag()
+
+  const { data: existentTags, isLoading: isLoadingExistentTags } =
+    useFetchTags()
+
+  const handleAddNewTag = () => {
+    const id = createId()
+
+    mutate({
+      json: {
+        id,
+        name: tagNameValue,
+        icon,
+      },
+    })
+
+    setSelectedTags((prev) => [
+      ...prev,
+      {
+        icon,
+        id,
+        name: tagNameValue,
+      },
+    ])
+
+    setTagNameValue("")
+  }
+
+  const tagsToShow = selectedTags.filter(
+    (selectedTag) =>
+      !existentTags?.find((existentTag) => existentTag.id === selectedTag.id)
+  )
+
+  return (
+    <CommandList>
+      {!isLoadingExistentTags && (
+        <CommandEmpty className="p-0">
+          <button
+            type="button"
+            className="hover:bg-muted-foreground/5 inline-flex w-full cursor-pointer items-center gap-2 px-4 py-3 text-start text-sm"
+            onClick={handleAddNewTag}
+          >
+            <span className="text-muted-foreground flex items-center">
+              <kbd className="text-muted-foreground/70 mr-2 inline-flex h-5 max-h-full items-center rounded border px-1 font-[inherit] text-[0.625rem] font-medium">
+                Enter
+              </kbd>
+              Create tag
+            </span>
+            {tagNameValue}
+          </button>
+        </CommandEmpty>
+      )}
+
+      {/* {tagsToShow.length > 0 && (
+        <CommandGroup heading="New tags">
+          <div className="flex flex-row flex-wrap gap-2 p-1">
+            <AnimatePresence>
+              {tagsToShow.map((tagToShow) => {
+                const tagWasCreated = !!existentTags?.find(
+                  (existentTag) => existentTag.id === tagToShow.id
+                )
+
+                return (
+                  <CommandTagItem
+                    key={tagToShow.id}
+                    tag={tagToShow}
+                    classNameContainer={cn(tagWasCreated && "!hidden")}
+                    onlyRemove
+                  />
+                )
+              })}
+            </AnimatePresence>
+          </div>
+        </CommandGroup>
+      )} */}
+
+      <CommandGroup heading="Existent tags">
+        <div className="flex flex-row flex-wrap gap-2 p-1">
+          {/* {isLoadingExistentTags
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <CommandTagItem.Skeleton key={index} />
+              ))
+            : existentTags?.map((tag) => (
+                <CommandTagItem key={tag.id} tag={tag} />
+              ))} */}
+
+          {existentTags?.map((tag) => (
+            <CommandTagItem key={tag.id} tag={tag} />
+          ))}
+        </div>
+      </CommandGroup>
+    </CommandList>
+  )
+}
+
+const TagCreatorSelectedItem = ({ tag }: { tag: Tag }) => {
+  const Icon = tagIconsOptions[tag.icon as TagIconOption]
+
+  const MotionBadge = motion.create(Badge)
+
+  return (
+    <AnimatePresence>
+      <MotionBadge
+        variant="outline"
+        className="bg-muted-foreground/5 flex !h-6 !p-0 !px-2 !py-0.5 !transition-colors"
+        initial={{ opacity: 0, scale: 0.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.5 }}
+      >
+        <Icon className="!size-3.5" />
+        {tag.name}
+      </MotionBadge>
+    </AnimatePresence>
+  )
+}
+
+export {
+  TagCreatorProvider,
+  TagCreator,
+  TagCreatorCommand,
+  TagCreatorCommandTrigger,
+  TagCreatorCommandHeader,
+  TagCreatorCommandIconSelectPopover,
+  TagCreatorCommandInput,
+  TagCreatorCommandContent,
+}

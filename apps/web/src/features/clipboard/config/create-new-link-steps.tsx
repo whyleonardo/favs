@@ -6,7 +6,7 @@ import {
   CredenzaClose,
   CredenzaFooter,
 } from "@/components/ui/credenza"
-import { CreateLinkForm } from "@/features/clipboard-history/components/forms/create-link-form"
+import { CreateLinkForm } from "@/features/clipboard/components/forms/create-link-form"
 
 export const createNewLinkSteps = [
   {

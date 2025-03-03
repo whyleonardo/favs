@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 
-import { Clipboard } from "@/features/clipboard-history/components/clipboard"
+import { Clipboard } from "@/features/clipboard/components/clipboard"
 
 interface AuthenticatedLayoutProps {
   children: ReactNode

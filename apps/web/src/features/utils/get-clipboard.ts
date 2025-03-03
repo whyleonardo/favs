@@ -6,7 +6,6 @@ const CLIPBOARD_PERMISSION_ERROR_MESSAGE =
 
 const clipboardSchema = z.object({
   url: z.string().url(),
-  date: z.date().default(new Date()),
 })
 
 export async function getClipboard() {
@@ -24,12 +23,11 @@ export async function getClipboard() {
 
   const clipboard = clipboardSchema.safeParse({
     url,
-    data: new Date(),
   })
 
   if (!clipboard.success) {
     return null
   }
 
-  return clipboard.data
+  return clipboard.data.url
 }

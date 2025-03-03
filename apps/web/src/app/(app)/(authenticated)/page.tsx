@@ -1,6 +1,7 @@
 import { SignOutButton } from "@/features/auth/components/sign-out-button"
 import { getSession } from "@/features/auth/server/get-session"
 import { protectRoute } from "@/features/auth/server/protect-route"
+import { LinksContainer } from "@/features/links/components/links-container"
 
 export default async function Home() {
   const session = await getSession()
@@ -9,14 +10,11 @@ export default async function Home() {
     protectRoute({ redirectUrl: "/login" })
   }
 
-  const tags = ["hey", "dc"]
   return (
     <main>
       <SignOutButton />
-      {/* <LinkCard /> */}
-      <br />
 
-      <br />
+      <LinksContainer />
     </main>
   )
 }
