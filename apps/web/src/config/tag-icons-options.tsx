@@ -1,13 +1,26 @@
+import type {
+  ForwardRefExoticComponent,
+  JSX,
+  RefAttributes,
+  SVGProps,
+} from "react"
+
 import { Icons } from "@/components/icons"
 
-import { LucideCodeXml, LucidePalette } from "lucide-react"
+import { CodeXmlIcon, type LucideProps, PaletteIcon } from "lucide-react"
 
 export const tagIconsOptions = {
   shadcn: Icons.shadcn,
-  design: LucidePalette,
-  devTools: LucideCodeXml,
+  design: PaletteIcon,
+  devTools: CodeXmlIcon,
 } as const
 
 export type TagIconOption = keyof typeof tagIconsOptions
 
-export type Icon = any
+export type Icon = (
+  props: SVGProps<SVGSVGElement>
+) =>
+  | JSX.Element
+  | ForwardRefExoticComponent<
+      Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+    >

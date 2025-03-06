@@ -27,6 +27,7 @@ import {
   CommandGroup,
   CommandList,
 } from "@/components/ui/command"
+import { Input } from "@/components/ui/input"
 import {
   Popover,
   PopoverContent,
@@ -49,7 +50,6 @@ import { AnimatePresence, motion } from "motion/react"
 import { useEventListener } from "usehooks-ts"
 
 import { CommandTagItem } from "./command-tag-item"
-import { Input } from "./ui/input"
 import {
   Tooltip,
   TooltipContent,
@@ -211,7 +211,7 @@ const TagCreatorCommandIconSelectPopover = () => {
       (acc, [key, value]) => {
         acc.push({
           name: key as TagIconOption,
-          icon: value,
+          icon: value as Icon,
         })
 
         return acc
