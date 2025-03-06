@@ -18,9 +18,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
+// import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
+import { formatDate } from "@/utils/format-date"
 
-// import { formatDate } from "@/utils/format-date"
+import { LucideX } from "lucide-react"
 
 interface LinkCardProps {
   link: {
@@ -64,14 +65,14 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           <div>
             <MorphingDialogTitle>{link.title}</MorphingDialogTitle>
             <MorphingDialogSubtitle className="text-muted-foreground text-xs">
-              New Date
+              {formatDate(link.createdAt as string)}
             </MorphingDialogSubtitle>
           </div>
 
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                const Icon = tagIconsOptions[tag.icon as TagIconOption]
+                const Icon = LucideX
 
                 return (
                   <TooltipProvider key={tag.id}>
@@ -143,7 +144,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
 
                 <div>
                   {link.tags.map((tag) => {
-                    const Icon = tagIconsOptions[tag.icon as TagIconOption]
+                    const Icon = LucideX
 
                     return (
                       <Badge
