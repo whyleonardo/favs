@@ -1,10 +1,6 @@
 import { Icons } from "@/components/icons"
 
-import {
-  LucideCodeXml,
-  IconNode as LucideIcon,
-  LucidePalette,
-} from "lucide-react"
+import { LucideCodeXml, LucidePalette } from "lucide-react"
 
 export const tagIconsOptions = {
   shadcn: Icons.shadcn,
@@ -14,4 +10,4 @@ export const tagIconsOptions = {
 
 export type TagIconOption = keyof typeof tagIconsOptions
 
-export type IconType = LucideIcon
+export type Icon = any

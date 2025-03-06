@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
-  type IconType,
+  type Icon,
   type TagIconOption,
   tagIconsOptions,
 } from "@/config/tag-icons-options"
@@ -211,12 +211,12 @@ const TagCreatorCommandIconSelectPopover = () => {
       (acc, [key, value]) => {
         acc.push({
           name: key as TagIconOption,
-          icon: value as IconType,
+          icon: value,
         })
 
         return acc
       },
-      [] as { name: TagIconOption; icon: IconType }[]
+      [] as { name: TagIconOption; icon: Icon }[]
     )
     .filter((icon) =>
       filterIconsValue !== ""
