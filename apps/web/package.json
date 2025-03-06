@@ -12,6 +12,7 @@
     "@grek/api": "workspace:*",
     "@grek/auth": "workspace:*",
     "@grek/db": "workspace:*",
+    "@grek/ts-config": "workspace:*",
     "@hookform/error-message": "2.0.1",
     "@hookform/resolvers": "4.1.2",
     "@radix-ui/react-dialog": "1.1.6",
@@ -50,5 +51,6 @@
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "typescript": "5.7.3"
-  }
+  },
+  "@grek/db": "workspace:*"
 }
