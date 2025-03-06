@@ -1,6 +1,6 @@
 "use client"
 
-import { LinkCard } from "@/features/links/components/link-card"
+// import { LinkCard } from "@/features/links/components/link-card"
 import { useFetchLinks } from "@/features/links/queries/use-fetch-links"
 
 export const LinksContainer = () => {
@@ -8,7 +8,7 @@ export const LinksContainer = () => {
 
   return (
     <div className="mx-auto flex max-w-screen-lg flex-wrap gap-4 px-4">
-      {links?.map((link) => <LinkCard key={link.id} link={link} />)}
+      {links?.map((link) => <div key={link.id}>hey </div>)}
     </div>
   )
 }

@@ -14,7 +14,7 @@ export default async function Home() {
     <main>
       <SignOutButton />
 
-      {/* <LinksContainer /> */}
+      <LinksContainer />
     </main>
   )
 }
