@@ -10,15 +10,15 @@ import {
   MorphingDialogTitle,
   MorphingDialogTrigger,
 } from "@/components/motion/morphing-dialog"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
-import { tagIconsOptions } from "@/config/tag-icons-options"
+// import { Badge } from "@/components/ui/badge"
+// import { Separator } from "@/components/ui/separator"
+// import {
+//   Tooltip,
+//   TooltipContent,
+//   TooltipProvider,
+//   TooltipTrigger,
+// } from "@/components/ui/tooltip"
+// import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import { formatDate } from "@/utils/format-date"
 
 interface LinkCardProps {
@@ -67,11 +67,10 @@ export const LinkCard = ({ link }: LinkCardProps) => {
             </MorphingDialogSubtitle>
           </div>
 
-          {linkContainTags && (
+          {/* {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                // @ts-expect-error - missing types
-                const Icon = tagIconsOptions[tag.icon]
+                const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                 return (
                   <TooltipProvider key={tag.id}>
@@ -92,7 +91,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
                 )
               })}
             </div>
-          )}
+          )} */}
         </div>
       </MorphingDialogTrigger>
 
@@ -139,12 +138,11 @@ export const LinkCard = ({ link }: LinkCardProps) => {
 
             {linkContainTags && (
               <>
-                <Separator className="bg-muted-foreground/5 my-4" />
+                {/* <Separator className="bg-muted-foreground/5 my-4" /> */}
 
                 <div>
-                  {link.tags.map((tag) => {
-                    // @ts-expect-error - missing types
-                    const Icon = tagIconsOptions[tag.icon]
+                  {/* {link.tags.map((tag) => {
+                    const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                     return (
                       <Badge
@@ -156,7 +154,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
                         {tag.name}
                       </Badge>
                     )
-                  })}
+                  })} */}
                 </div>
               </>
             )}
