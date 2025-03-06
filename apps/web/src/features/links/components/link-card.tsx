@@ -70,7 +70,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                const Icon = tagIconsOptions[tag.icon as TagIconOption]
+                const Icon = tagIconsOptions.design
 
                 return (
                   <TooltipProvider key={tag.id}>
@@ -142,7 +142,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
 
                 <div>
                   {link.tags.map((tag) => {
-                    const Icon = tagIconsOptions[tag.icon as TagIconOption]
+                    const Icon = tagIconsOptions.design
 
                     return (
                       <Badge
