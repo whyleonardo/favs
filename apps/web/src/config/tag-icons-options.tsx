@@ -20,16 +20,16 @@ import {
 } from "lucide-react"
 
 export const tagIconsOptions = {
-  design: BrushIcon,
-  colors: PaletteIcon,
-  devTools: CodeXmlIcon,
-  images: ImageIcon,
-  icons: ConeIcon,
-  "ui-references": PanelsTopLeftIcon,
+  brush: BrushIcon,
+  palette: PaletteIcon,
+  "code-xml": CodeXmlIcon,
+  image: ImageIcon,
+  cone: ConeIcon,
+  panels: PanelsTopLeftIcon,
   shadcn: Icons.shadcn,
-  oss: PackageOpenIcon,
-  fonts: CaseLowerIcon,
-}
+  "package-open": PackageOpenIcon,
+  "case-lower": CaseLowerIcon,
+} as const
 
 export type TagIconOption = keyof typeof tagIconsOptions
 

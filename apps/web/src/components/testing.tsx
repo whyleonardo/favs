@@ -79,7 +79,7 @@ export const useTagCreator = () => {
 }
 
 const TagCreatorProvider = ({ children }: { children: ReactNode }) => {
-  const [icon, setIcon] = useState<TagIconOption>("devTools")
+  const [icon, setIcon] = useState<TagIconOption>("code-xml")
 
   const [selectedTags, setSelectedTags] = useState<Tag[]>([])
   const [openCommand, _setOpenCommand] = useState(false)

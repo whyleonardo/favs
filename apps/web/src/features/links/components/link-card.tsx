@@ -21,8 +21,6 @@ import {
 import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import { formatDate } from "@/utils/format-date"
 
-import { XIcon } from "lucide-react"
-
 interface LinkCardProps {
   link: {
     id: string
@@ -72,6 +70,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
+                console.log({ tag, tagIconsOptions })
                 const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                 return (
