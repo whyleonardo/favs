@@ -45,7 +45,7 @@ import type { Tag } from "@/features/tags/types"
 import { cn } from "@/lib/utils"
 
 import { Command as CommandPrimitive } from "cmdk"
-import { LucidePlus, LucideSearch } from "lucide-react"
+import { PlusIcon, SearchIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useEventListener } from "usehooks-ts"
 
@@ -174,7 +174,7 @@ const TagCreatorCommandTrigger = memo(() => {
       className="text-muted-foreground hover:bg-muted-foreground/5 w-full justify-start text-xs"
       onClick={() => setOpenCommand()}
     >
-      <LucidePlus /> Add tags
+      <PlusIcon /> Add tags
     </Button>
   )
 })
@@ -265,7 +265,7 @@ const TagCreatorCommandIconSelectPopover = () => {
             type="text"
           />
           <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-            <LucideSearch className="size-4" aria-hidden="true" />
+            <SearchIcon className="size-4" aria-hidden="true" />
           </div>
         </div>
 

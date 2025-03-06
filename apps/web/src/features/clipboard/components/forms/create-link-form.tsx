@@ -29,7 +29,7 @@ import { useCreateLink } from "@/features/links/queries/use-create-link"
 import { useStore } from "@/hooks/use-store"
 import { clipboardStore } from "@/store/clipboard-store"
 
-import { LucideLoader2 } from "lucide-react"
+import { Loader2Icon } from "lucide-react"
 
 export const CreateLinkForm = () => {
   const { mutate, isPending } = useCreateLink()
@@ -162,7 +162,7 @@ export const CreateLinkForm = () => {
 
         <Button type="submit" disabled={!form.formState.isValid}>
           create
-          {isPending && <LucideLoader2 className="size-3.5 animate-spin" />}
+          {isPending && <Loader2Icon className="size-3.5 animate-spin" />}
         </Button>
       </CredenzaFooter>
     </form>
