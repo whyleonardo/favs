@@ -13,7 +13,7 @@ export const tagIconsOptions = {
   shadcn: Icons.shadcn,
   design: PaletteIcon,
   devTools: CodeXmlIcon,
-} as const
+}
 
 export type TagIconOption = keyof typeof tagIconsOptions
 
