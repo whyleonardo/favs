@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
+import { TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import { formatDate } from "@/utils/format-date"
 
 interface LinkCardProps {
@@ -70,7 +70,8 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                const Icon = tagIconsOptions.design
+                // @ts-expect-error - missing types
+                const Icon = tagIconsOptions[tag.icon]
 
                 return (
                   <TooltipProvider key={tag.id}>
@@ -142,7 +143,8 @@ export const LinkCard = ({ link }: LinkCardProps) => {
 
                 <div>
                   {link.tags.map((tag) => {
-                    const Icon = tagIconsOptions.design
+                    // @ts-expect-error - missing types
+                    const Icon = tagIconsOptions[tag.icon]
 
                     return (
                       <Badge
