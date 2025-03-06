@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <main>
-      {/* <SignOutButton /> */}
+      <SignOutButton />
 
       {/* <LinksContainer /> */}
     </main>
