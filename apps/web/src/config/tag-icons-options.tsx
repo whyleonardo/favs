@@ -7,12 +7,28 @@ import type {
 
 import { Icons } from "@/components/icons"
 
-import { CodeXmlIcon, type LucideProps, PaletteIcon } from "lucide-react"
+import {
+  BrushIcon,
+  CaseLowerIcon,
+  CodeXmlIcon,
+  ConeIcon,
+  ImageIcon,
+  type LucideProps,
+  PackageOpenIcon,
+  PaletteIcon,
+  PanelsTopLeftIcon,
+} from "lucide-react"
 
 export const tagIconsOptions = {
-  shadcn: Icons.shadcn,
-  design: PaletteIcon,
+  design: BrushIcon,
+  colors: PaletteIcon,
   devTools: CodeXmlIcon,
+  images: ImageIcon,
+  icons: ConeIcon,
+  "ui-references": PanelsTopLeftIcon,
+  shadcn: Icons.shadcn,
+  oss: PackageOpenIcon,
+  fonts: CaseLowerIcon,
 }
 
 export type TagIconOption = keyof typeof tagIconsOptions

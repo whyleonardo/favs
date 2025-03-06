@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { tagIconsOptions } from "@/config/tag-icons-options"
+import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import { formatDate } from "@/utils/format-date"
 
 import { XIcon } from "lucide-react"
@@ -72,8 +72,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                const Icon =
-                  tagIconsOptions[tag.icon as keyof typeof tagIconsOptions]
+                const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                 return (
                   <TooltipProvider key={tag.id}>
@@ -145,8 +144,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
 
                 <div>
                   {link.tags.map((tag) => {
-                    const Icon =
-                      tagIconsOptions[tag.icon as keyof typeof tagIconsOptions]
+                    const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                     return (
                       <Badge
