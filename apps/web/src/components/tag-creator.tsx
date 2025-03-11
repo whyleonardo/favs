@@ -19,7 +19,6 @@ import {
 import { createId } from "@paralleldrive/cuid2"
 import type { Noop, RefCallBack } from "react-hook-form"
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   CommandDialog,
@@ -35,6 +34,12 @@ import {
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import {
   type Icon,
   type TagIconOption,
   tagIconsOptions,
@@ -49,13 +54,7 @@ import { PlusIcon, SearchIcon } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useEventListener } from "usehooks-ts"
 
-import { CommandTagItem } from "./command-tag-item"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip"
+import { TagButton } from "./tag-button"
 
 interface TagCreatorContext {
   icon: TagIconOption
@@ -64,6 +63,16 @@ interface TagCreatorContext {
   setSelectedTags: Dispatch<SetStateAction<Tag[]>>
   openCommand: boolean
   setOpenCommand: () => void
+}
+
+interface TagCreatorCommandProps {
+  disabled?: boolean | undefined
+  name: "tags"
+  onBlur: Noop
+  onChange: (value: string[]) => void
+  ref: RefCallBack
+  required?: boolean | undefined
+  value: string[] | undefined
 }
 
 export const TagCreatorContext = createContext<TagCreatorContext | null>(null)
@@ -107,27 +116,31 @@ const TagCreator = memo(({ children }: { children: ReactNode }) => {
   const { selectedTags } = useTagCreator()
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col justify-between gap-4 rounded border border-dashed px-2 py-4">
       <div className="flex w-full items-center gap-2">{children}</div>
 
-      <div className="flex max-w-full flex-wrap items-center gap-1.5">
-        {selectedTags.map((tag) => (
-          <TagCreatorSelectedItem key={tag.id} tag={tag} />
-        ))}
-      </div>
+      {selectedTags.length === 0 ? (
+        <div className="flex min-h-6 w-full items-center justify-center">
+          <p className="text-muted-foreground text-xs font-medium">
+            nothing selected
+          </p>
+        </div>
+      ) : (
+        <motion.div
+          layout
+          exit={{ translateY: 120 }}
+          className="relative flex min-h-6 max-w-full flex-wrap items-center gap-1.5"
+        >
+          <AnimatePresence mode="popLayout">
+            {selectedTags.map((tag) => (
+              <TagButton key={tag.id} tag={tag} onlyRemove className="w-fit" />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
     </div>
   )
 })
-
-interface TagCreatorCommandProps {
-  disabled?: boolean | undefined
-  name: "tags"
-  onBlur: Noop
-  onChange: (value: string[]) => void
-  ref: RefCallBack
-  required?: boolean | undefined
-  value: string[] | undefined
-}
 
 const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
   const { selectedTags, openCommand, setOpenCommand } = useTagCreator()
@@ -152,7 +165,7 @@ const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
           name={name}
           value={tagNameValue}
           setTagNameValue={setTagNameValue}
-          placeholder="Search tags or create new one..."
+          placeholder="search tags or create new one..."
         />
       </TagCreatorCommandHeader>
 
@@ -174,7 +187,7 @@ const TagCreatorCommandTrigger = memo(() => {
       className="text-muted-foreground hover:bg-muted-foreground/5 w-full justify-start text-xs"
       onClick={() => setOpenCommand()}
     >
-      <PlusIcon /> Add tags
+      <PlusIcon /> add tags
     </Button>
   )
 })
@@ -365,7 +378,7 @@ const TagCreatorCommandContent = ({
   tagNameValue: string
   setTagNameValue: (value: string) => void
 }) => {
-  const { selectedTags, setSelectedTags, icon } = useTagCreator()
+  const { setSelectedTags, icon } = useTagCreator()
   const { mutate } = useCreateTag()
 
   const { data: existentTags, isLoading: isLoadingExistentTags } =
@@ -394,14 +407,28 @@ const TagCreatorCommandContent = ({
     setTagNameValue("")
   }
 
-  const tagsToShow = selectedTags.filter(
-    (selectedTag) =>
-      !existentTags?.find((existentTag) => existentTag.id === selectedTag.id)
-  )
+  // if (existentTags?.length === 0 && tagNameValue === "") {
+  //   return (
+  //     <CommandEmpty className="inline-flex w-full items-center justify-center gap-2 px-4 py-3 text-sm">
+  //       <span className="text-muted-foreground flex items-center">
+  //         there no tags created yet
+  //       </span>
+  //     </CommandEmpty>
+  //   )
+  // }
+
+  if (isLoadingExistentTags) {
+    return Array.from({ length: 3 }).map((_, index) => (
+      <TagButton.Skeleton key={index} />
+    ))
+  }
+
+  const showEmpty =
+    (existentTags && existentTags.length > 0) || tagNameValue !== ""
 
   return (
     <CommandList>
-      {!isLoadingExistentTags && (
+      {showEmpty && (
         <CommandEmpty className="p-0">
           <button
             type="button"
@@ -419,66 +446,28 @@ const TagCreatorCommandContent = ({
         </CommandEmpty>
       )}
 
-      {/* {tagsToShow.length > 0 && (
-        <CommandGroup heading="New tags">
+      <CommandGroup heading="your tags" className="px-2 py-1">
+        {existentTags && existentTags.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-2 p-1">
-            <AnimatePresence>
-              {tagsToShow.map((tagToShow) => {
-                const tagWasCreated = !!existentTags?.find(
-                  (existentTag) => existentTag.id === tagToShow.id
-                )
-
-                return (
-                  <CommandTagItem
-                    key={tagToShow.id}
-                    tag={tagToShow}
-                    classNameContainer={cn(tagWasCreated && "!hidden")}
-                    onlyRemove
-                  />
-                )
-              })}
-            </AnimatePresence>
+            {existentTags.map((tag) => (
+              <CommandPrimitive.Item
+                key={tag.id}
+                data-slot="command-item"
+                className="!h-6 !p-0"
+              >
+                <TagButton tag={tag} />
+              </CommandPrimitive.Item>
+            ))}
           </div>
-        </CommandGroup>
-      )} */}
-
-      <CommandGroup heading="Existent tags">
-        <div className="flex flex-row flex-wrap gap-2 p-1">
-          {/* {isLoadingExistentTags
-            ? Array.from({ length: 3 }).map((_, index) => (
-                <CommandTagItem.Skeleton key={index} />
-              ))
-            : existentTags?.map((tag) => (
-                <CommandTagItem key={tag.id} tag={tag} />
-              ))} */}
-
-          {existentTags?.map((tag) => (
-            <CommandTagItem key={tag.id} tag={tag} />
-          ))}
-        </div>
+        ) : (
+          <div className="flex min-h-6 w-full items-center justify-center">
+            <p className="text-muted-foreground text-xs font-medium">
+              nothing here yet
+            </p>
+          </div>
+        )}
       </CommandGroup>
     </CommandList>
-  )
-}
-
-const TagCreatorSelectedItem = ({ tag }: { tag: Tag }) => {
-  const Icon = tagIconsOptions[tag.icon as TagIconOption]
-
-  const MotionBadge = motion.create(Badge)
-
-  return (
-    <AnimatePresence>
-      <MotionBadge
-        variant="outline"
-        className="bg-muted-foreground/5 flex !h-6 !p-0 !px-2 !py-0.5 !transition-colors"
-        initial={{ opacity: 0, scale: 0.1 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.5 }}
-      >
-        <Icon className="!size-3.5" />
-        {tag.name}
-      </MotionBadge>
-    </AnimatePresence>
   )
 }
 
