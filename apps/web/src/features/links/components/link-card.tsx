@@ -21,6 +21,8 @@ import {
 import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import { formatDate } from "@/utils/format-date"
 
+import { LinkCardActions } from "./link-card-actions"
+
 interface LinkCardProps {
   link: {
     id: string
@@ -51,14 +53,8 @@ export const LinkCard = ({ link }: LinkCardProps) => {
         style={{
           borderRadius: "12px",
         }}
-        className="min-h-[50px] min-w-[300px] flex-1 flex-col overflow-hidden border"
+        className="min-h-[50px] min-w-[300px] max-w-[300px] flex-1 flex-col overflow-hidden border"
       >
-        {/* <MorphingDialogImage
-          src="/eb-27-lamp-edouard-wilfrid-buquet.jpg"
-          alt="A desk lamp designed by Edouard Wilfrid Buquet in 1925. It features a double-arm design and is made from nickel-plated brass, aluminium and varnished wood."
-          className="h-48 w-full object-cover"
-        /> */}
-
         <div className="flex grow flex-row justify-between gap-3 px-3 py-2">
           <div>
             <MorphingDialogTitle>{link.title}</MorphingDialogTitle>
@@ -70,7 +66,6 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           {linkContainTags && (
             <div className="flex items-start gap-1">
               {link.tags.map((tag) => {
-                console.log({ tag, tagIconsOptions })
                 const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
                 return (
@@ -103,15 +98,14 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           }}
           className="pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border p-4 sm:w-[500px]"
         >
-          {/* <MorphingDialogImage
-            src="/eb-27-lamp-edouard-wilfrid-buquet.jpg"
-            alt="A desk lamp designed by Edouard Wilfrid Buquet in 1925. It features a double-arm design and is made from nickel-plated brass, aluminium and varnished wood."
-            className="h-full w-full"
-          /> */}
           <div className="p-4">
-            <MorphingDialogTitle className="text-2xl">
-              {link.title}
-            </MorphingDialogTitle>
+            <div className="flex items-center gap-4">
+              <MorphingDialogTitle className="text-2xl">
+                {link.title}
+              </MorphingDialogTitle>
+
+              <LinkCardActions linkId={link.id} />
+            </div>
 
             <MorphingDialogSubtitle className="text-muted-foreground">
               <a

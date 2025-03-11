@@ -1,7 +1,7 @@
 "use client"
 
+import { useFetchLinks } from "@/features/links/api/use-fetch-links"
 import { LinkCard } from "@/features/links/components/link-card"
-import { useFetchLinks } from "@/features/links/queries/use-fetch-links"
 
 export const LinksContainer = () => {
   const { data: links } = useFetchLinks()

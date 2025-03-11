@@ -10,7 +10,7 @@ import { CreateLinkForm } from "../forms/create-link-form"
 
 export const CreateNewLinkModal = () => {
   return (
-    <CredenzaContent className="!w-[1500px]">
+    <CredenzaContent>
       <CredenzaHeader>
         <CredenzaTitle>we detected a link in your clipboard</CredenzaTitle>
       </CredenzaHeader>

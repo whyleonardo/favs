@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { useOAuthSignIn } from "@/features/auth/queries/use-oauth-sign-in"
+import { useOAuthSignIn } from "@/features/auth/api/use-oauth-sign-in"
 
 export const SignInButton = () => {
   const { mutate: mutateGithub, isPending: isPendingGithub } = useOAuthSignIn()

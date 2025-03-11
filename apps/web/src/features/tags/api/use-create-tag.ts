@@ -4,7 +4,7 @@ import {
   type CreateTagRequest,
   type CreateTagResponse,
   createTag,
-} from "@/features/tags/client/create-tag"
+} from "@/features/tags/http/create-tag"
 import type { Tag } from "@/features/tags/types"
 
 import { toast } from "sonner"
@@ -24,25 +24,32 @@ export const useCreateTag = () => {
       return response
     },
     mutationKey: createTagMutationKey(),
-    // onMutate: async (tag) => {
-    //   await queryClient.cancelQueries({ queryKey: fetchTagsQueryKey() })
+    onMutate: async ({ json }) => {
+      const tag = json
 
-    //   const previousTags = queryClient.getQueryData(
-    //     fetchTagsQueryKey()
-    //   ) as Tag[]
+      await queryClient.cancelQueries({ queryKey: fetchTagsQueryKey() })
 
-    //   queryClient.setQueryData(fetchTagsQueryKey(), (previousTags: Tag[]) => [
-    //     ...previousTags,
-    //     tag,
-    //   ])
+      const previousTags = queryClient.getQueryData(
+        fetchTagsQueryKey()
+      ) as Tag[]
 
-    //   return { previousTags }
-    // },
-    // onError: (_, __, context) => {
-    //   toast.error("Failed to create new tag")
+      queryClient.setQueryData(fetchTagsQueryKey(), (previousTags: Tag[]) => [
+        ...previousTags,
+        tag,
+      ])
 
-    //   queryClient.setQueryData(fetchTagsQueryKey(), context?.previousTags)
-    // },
+      return { previousTags }
+    },
+    onError: (_, __, ctx) => {
+      toast.error("Failed to create new tag")
+
+      const context = ctx as { previousTags: Tag[] }
+
+      queryClient.setQueryData(
+        fetchTagsQueryKey(),
+        context?.previousTags as Tag[]
+      )
+    },
     onSettled: () =>
       queryClient.invalidateQueries({ queryKey: fetchTagsQueryKey() }),
   })

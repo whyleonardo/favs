@@ -11,7 +11,7 @@ import {
   TagCreatorCommand,
   TagCreatorCommandTrigger,
   TagCreatorProvider,
-} from "@/components/testing"
+} from "@/components/tag-creator"
 import { Button } from "@/components/ui/button"
 import {
   CredenzaBody,
@@ -25,7 +25,7 @@ import {
   type CreateLinkFormData,
   createLinkSchema,
 } from "@/features/clipboard/types"
-import { useCreateLink } from "@/features/links/queries/use-create-link"
+import { useCreateLink } from "@/features/links/api/use-create-link"
 import { useStore } from "@/hooks/use-store"
 import { clipboardStore } from "@/store/clipboard-store"
 
@@ -63,7 +63,7 @@ export const CreateLinkForm = () => {
   })
 
   return (
-    <form className="mt-2 min-h-fit space-y-4" onSubmit={onSubmit}>
+    <form className="min-h-fit space-y-4" onSubmit={onSubmit}>
       <CredenzaBody className="space-y-4">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="title" className="text-xs font-semibold">
@@ -160,7 +160,7 @@ export const CreateLinkForm = () => {
           </Button>
         </CredenzaClose>
 
-        <Button type="submit" disabled={!form.formState.isValid}>
+        <Button type="submit" disabled={!form.formState.isValid || isPending}>
           create
           {isPending && <Loader2Icon className="size-3.5 animate-spin" />}
         </Button>

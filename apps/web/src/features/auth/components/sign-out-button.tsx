@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { useSignOut } from "@/features/auth/queries/use-sign-out"
+import { useSignOut } from "@/features/auth/api/use-sign-out"
 
 import { LogOutIcon } from "lucide-react"
 

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Credenza } from "@/components/ui/credenza"
 import { CreateNewLinkModal } from "@/features/clipboard/components/modal/create-link-modal"
-import { getClipboard } from "@/features/utils/get-clipboard"
+import { getClipboard } from "@/features/clipboard/utils/get-clipboard"
 import { useStore } from "@/hooks/use-store"
 import { clipboardStore } from "@/store/clipboard-store"
 
