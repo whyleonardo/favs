@@ -19,6 +19,16 @@ import {
   PanelsTopLeftIcon,
 } from "lucide-react"
 
+export type TagIconOption = keyof typeof tagIconsOptions
+
+export type Icon = (
+  props: SVGProps<SVGSVGElement>
+) =>
+  | JSX.Element
+  | ForwardRefExoticComponent<
+      Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+    >
+
 export const tagIconsOptions = {
   brush: BrushIcon,
   palette: PaletteIcon,
@@ -30,13 +40,3 @@ export const tagIconsOptions = {
   "package-open": PackageOpenIcon,
   "case-lower": CaseLowerIcon,
 } as const
-
-export type TagIconOption = keyof typeof tagIconsOptions
-
-export type Icon = (
-  props: SVGProps<SVGSVGElement>
-) =>
-  | JSX.Element
-  | ForwardRefExoticComponent<
-      Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
-    >
