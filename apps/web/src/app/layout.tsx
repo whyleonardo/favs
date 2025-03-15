@@ -4,9 +4,8 @@ import type { Viewport } from "next/types"
 
 import { ThemeProvider } from "next-themes"
 
-import { env } from "@grek/env/web"
-
 import { Toaster } from "@/components/ui/sonner"
+import { ENABLE_REACT_SCAN, VERCEL_ENV_PROD } from "@/constants"
 import { cn } from "@/lib/utils"
 import { QueryProvider } from "@/providers/query-provider"
 import { fontMono, fontSans } from "@/styles/fonts"
@@ -23,15 +22,16 @@ const RootLayout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {env.VERCEL_ENV !== "production" && (
-          <script
-            crossOrigin="anonymous"
-            src="//unpkg.com/react-scan/dist/auto.global.js"
-          />
-        )}
+        {!VERCEL_ENV_PROD ||
+          (ENABLE_REACT_SCAN && (
+            <script
+              crossOrigin="anonymous"
+              src="//unpkg.com/react-scan/dist/auto.global.js"
+            />
+          ))}
       </head>
       <body vaul-drawer-wrapper="" className={cn(fontSans, fontMono)}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <QueryProvider>
             {children}
 
