@@ -1,0 +1,3 @@
+{
+  "extends": ["@grek/ts-config/base.json"]
+}

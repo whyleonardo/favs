@@ -6,6 +6,9 @@ import { sharedEnv } from "../shared"
 
 export const env = createEnv({
   extends: [sharedEnv],
+  server: {
+    FLAGS_SECRET: z.string(),
+  },
   client: {
     NEXT_PUBLIC_APP_BASE_URL: z.string().url(),
     NEXT_PUBLIC_API_BASE_URL: z.string().url(),

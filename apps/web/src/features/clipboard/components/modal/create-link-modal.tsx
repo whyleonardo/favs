@@ -5,8 +5,7 @@ import {
   CredenzaHeader,
   CredenzaTitle,
 } from "@/components/ui/credenza"
-
-import { CreateLinkForm } from "../forms/create-link-form"
+import { CreateLinkForm } from "@/features/links/components/forms/create-link-form"
 
 export const CreateNewLinkModal = () => {
   return (
