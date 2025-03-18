@@ -11,6 +11,7 @@ import {
   MorphingDialogTrigger,
 } from "@/components/motion/morphing-dialog"
 import { Badge } from "@/components/ui/badge"
+import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import {
   Tooltip,
@@ -19,7 +20,16 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
+import { cn } from "@/lib/utils"
 import { formatDate } from "@/utils/format-date"
+
+import {
+  Calendar,
+  CalendarIcon,
+  Link2Icon,
+  Link2OffIcon,
+  LinkIcon,
+} from "lucide-react"
 
 import { LinkCardActions } from "./link-card-actions"
 
@@ -96,26 +106,41 @@ export const LinkCard = ({ link }: LinkCardProps) => {
           style={{
             borderRadius: "24px",
           }}
-          className="pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border p-4 sm:w-[500px]"
+          className="bg-background pointer-events-auto relative flex h-auto w-full flex-col overflow-hidden border p-4 sm:w-[500px]"
         >
           <div className="p-4">
             <div className="flex items-center gap-4">
-              <MorphingDialogTitle className="text-2xl">
+              <MorphingDialogTitle className="text-2xl font-semibold">
                 {link.title}
               </MorphingDialogTitle>
 
-              <LinkCardActions linkId={link.id} />
+              {/* <LinkCardActions linkId={link.id} /> */}
             </div>
 
-            <MorphingDialogSubtitle className="text-muted-foreground">
-              <a
-                className="inline-flex text-teal-500 underline"
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {link.url}
-              </a>
+            <MorphingDialogSubtitle className="mt-2 flex flex-col gap-0.5">
+              <div className="flex items-center gap-x-1">
+                <LinkIcon className="text-muted-foreground size-4" />
+                <a
+                  className={buttonVariants({
+                    variant: "link",
+                    className: cn(
+                      "text-teal-500 hover:text-teal-400 hover:underline"
+                    ),
+                  })}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.url}
+                </a>
+              </div>
+
+              <div className="flex items-center gap-x-1">
+                <CalendarIcon className="text-muted-foreground size-4" />
+                <span className="text-foreground/80 text-sm">
+                  {formatDate(link.createdAt as string)}
+                </span>
+              </div>
             </MorphingDialogSubtitle>
 
             <MorphingDialogDescription
@@ -135,7 +160,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
               <>
                 <Separator className="bg-muted-foreground/5 my-4" />
 
-                <div>
+                <div className="flex items-center gap-1">
                   {link.tags.map((tag) => {
                     const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
@@ -145,7 +170,7 @@ export const LinkCard = ({ link }: LinkCardProps) => {
                         variant="secondary"
                         className="flex items-center gap-1 rounded-sm"
                       >
-                        <Icon className="text-foreground !size-3" />
+                        <Icon className="text-foreground size-3" />
                         {tag.name}
                       </Badge>
                     )

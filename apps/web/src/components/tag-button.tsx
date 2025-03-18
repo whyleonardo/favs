@@ -84,7 +84,7 @@ TagButton.Skeleton = () => {
 
   return (
     <MotionSkeleton
-      className="h-6 w-20"
+      className="!h-6 w-20"
       initial={{ opacity: 0, scale: 0.1 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.5 }}

@@ -44,12 +44,12 @@ export const LinkCardActions = ({ linkId }: LinkCardActionsProps) => {
             tabIndex={-1}
             autoFocus={false}
             size="sm-icon"
-            variant="ghost"
+            variant="outline"
           >
             <TrashIcon className="text-destructive size-3.5" />
           </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="!max-w-[450px]">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>

@@ -6,6 +6,7 @@ import { ErrorMessage } from "@hookform/error-message"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 
+import { FormInput } from "@/components/common/forms/form-input"
 import {
   TagCreator,
   TagCreatorCommand,
@@ -65,30 +66,19 @@ export const CreateLinkForm = () => {
   return (
     <form className="min-h-fit space-y-4" onSubmit={onSubmit}>
       <CredenzaBody className="space-y-4">
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="title" className="text-xs font-semibold">
-            title
-          </Label>
-
-          <Input id="title" {...form.register("title")} />
-
-          <ErrorMessage
-            errors={form.formState.errors}
-            name="title"
-            render={({ message }) => (
-              <p className="text-destructive text-[0.75rem] tracking-tight">
-                {message}
-              </p>
-            )}
-          />
-        </div>
+        <FormInput />
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="url" className="text-xs font-semibold">
-            url
+          <Label htmlFor="url" className="text-s font-semibold">
+            URL
           </Label>
 
-          <Input id="url" {...form.register("url")} />
+          <div className="relative">
+            <Input id="url" className="peer ps-16" type="text" />
+            <span className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm peer-disabled:opacity-50">
+              https://
+            </span>
+          </div>
 
           <ErrorMessage
             errors={form.formState.errors}
@@ -102,12 +92,13 @@ export const CreateLinkForm = () => {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="url" className="text-xs font-semibold">
-            description
+          <Label htmlFor="description" className="text-s font-semibold">
+            Description
           </Label>
 
           <Textarea
             id="description"
+            placeholder="Describe your new link"
             className="resize-none"
             {...form.register("description")}
           />
@@ -124,8 +115,8 @@ export const CreateLinkForm = () => {
         </div>
 
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="tags" className="text-xs font-semibold">
-            tags
+          <Label htmlFor="tags" className="text-s font-semibold">
+            Tags
           </Label>
 
           <Controller
@@ -134,7 +125,7 @@ export const CreateLinkForm = () => {
             render={({ field }) => (
               <TagCreatorProvider>
                 <TagCreator>
-                  <TagCreatorCommandTrigger />
+                  <TagCreatorCommandTrigger id="tags" />
                   <TagCreatorCommand {...field} />
                 </TagCreator>
               </TagCreatorProvider>
@@ -156,12 +147,12 @@ export const CreateLinkForm = () => {
       <CredenzaFooter>
         <CredenzaClose className="cursor-pointer" asChild>
           <Button variant="ghost" ref={closeButtonRef}>
-            cancel
+            Cancel
           </Button>
         </CredenzaClose>
 
         <Button type="submit" disabled={!form.formState.isValid || isPending}>
-          create
+          Create
           {isPending && <Loader2Icon className="size-3.5 animate-spin" />}
         </Button>
       </CredenzaFooter>

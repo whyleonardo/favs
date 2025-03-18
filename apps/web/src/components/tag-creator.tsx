@@ -17,7 +17,6 @@ import {
 } from "react"
 
 import { createId } from "@paralleldrive/cuid2"
-import type { Noop, RefCallBack } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -44,9 +43,10 @@ import {
   type TagIconOption,
   tagIconsOptions,
 } from "@/config/tag-icons-options"
-import { useCreateTag } from "@/features/tags/queries/use-create-tag"
-import { useFetchTags } from "@/features/tags/queries/use-fetch-tags"
+import { useCreateTag } from "@/features/tags/api/use-create-tag"
+import { useFetchTags } from "@/features/tags/api/use-fetch-tags"
 import type { Tag } from "@/features/tags/types"
+import { useFieldContext } from "@/lib/form"
 import { cn } from "@/lib/utils"
 
 import { Command as CommandPrimitive } from "cmdk"
@@ -63,16 +63,6 @@ interface TagCreatorContext {
   setSelectedTags: Dispatch<SetStateAction<Tag[]>>
   openCommand: boolean
   setOpenCommand: () => void
-}
-
-interface TagCreatorCommandProps {
-  disabled?: boolean | undefined
-  name: "tags"
-  onBlur: Noop
-  onChange: (value: string[]) => void
-  ref: RefCallBack
-  required?: boolean | undefined
-  value: string[] | undefined
 }
 
 export const TagCreatorContext = createContext<TagCreatorContext | null>(null)
@@ -122,7 +112,7 @@ const TagCreator = memo(({ children }: { children: ReactNode }) => {
       {selectedTags.length === 0 ? (
         <div className="flex min-h-6 w-full items-center justify-center">
           <p className="text-muted-foreground text-xs font-medium">
-            nothing selected
+            No tags selected
           </p>
         </div>
       ) : (
@@ -142,8 +132,9 @@ const TagCreator = memo(({ children }: { children: ReactNode }) => {
   )
 })
 
-const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
+const TagCreatorCommand = () => {
   const { selectedTags, openCommand, setOpenCommand } = useTagCreator()
+  const field = useFieldContext<string[]>()
 
   const [tagNameValue, _setTagNameValue] = useState("")
 
@@ -154,7 +145,7 @@ const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: pass onChange as effect dep, causes infinite loops on app
   useEffect(() => {
-    onChange(selectedTags.map((tag) => tag.id))
+    field.handleChange(selectedTags.map((tag) => tag.id))
   }, [selectedTags])
 
   return (
@@ -162,7 +153,7 @@ const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
       <TagCreatorCommandHeader>
         <TagCreatorCommandIconSelectPopover />
         <TagCreatorCommandInput
-          name={name}
+          name={field.name}
           value={tagNameValue}
           setTagNameValue={setTagNameValue}
           placeholder="search tags or create new one..."
@@ -177,17 +168,18 @@ const TagCreatorCommand = ({ name, onChange }: TagCreatorCommandProps) => {
   )
 }
 
-const TagCreatorCommandTrigger = memo(() => {
+const TagCreatorCommandTrigger = memo(({ id }: { id?: string }) => {
   const { setOpenCommand } = useTagCreator()
 
   return (
     <Button
+      id={id}
       type="button"
       variant="outline"
       className="text-muted-foreground hover:bg-muted-foreground/5 w-full justify-start text-xs"
       onClick={() => setOpenCommand()}
     >
-      <PlusIcon /> add tags
+      <PlusIcon /> Add tags
     </Button>
   )
 })
@@ -407,22 +399,6 @@ const TagCreatorCommandContent = ({
     setTagNameValue("")
   }
 
-  // if (existentTags?.length === 0 && tagNameValue === "") {
-  //   return (
-  //     <CommandEmpty className="inline-flex w-full items-center justify-center gap-2 px-4 py-3 text-sm">
-  //       <span className="text-muted-foreground flex items-center">
-  //         there no tags created yet
-  //       </span>
-  //     </CommandEmpty>
-  //   )
-  // }
-
-  if (isLoadingExistentTags) {
-    return Array.from({ length: 3 }).map((_, index) => (
-      <TagButton.Skeleton key={index} />
-    ))
-  }
-
   const showEmpty =
     (existentTags && existentTags.length > 0) || tagNameValue !== ""
 
@@ -447,25 +423,31 @@ const TagCreatorCommandContent = ({
       )}
 
       <CommandGroup heading="your tags" className="px-2 py-1">
-        {existentTags && existentTags.length > 0 ? (
-          <div className="flex flex-row flex-wrap gap-2 p-1">
-            {existentTags.map((tag) => (
-              <CommandPrimitive.Item
-                key={tag.id}
-                data-slot="command-item"
-                className="!h-6 !p-0"
-              >
-                <TagButton tag={tag} />
-              </CommandPrimitive.Item>
-            ))}
-          </div>
-        ) : (
-          <div className="flex min-h-6 w-full items-center justify-center">
-            <p className="text-muted-foreground text-xs font-medium">
-              nothing here yet
-            </p>
-          </div>
-        )}
+        <div className="flex flex-row flex-wrap gap-2 p-1">
+          {isLoadingExistentTags
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <TagButton.Skeleton key={index} />
+              ))
+            : existentTags?.map((tag) => (
+                <CommandPrimitive.Item
+                  key={tag.id}
+                  data-slot="command-item"
+                  className="!h-6 !p-0"
+                >
+                  <TagButton tag={tag} />
+                </CommandPrimitive.Item>
+              ))}
+        </div>
+
+        {existentTags &&
+          existentTags.length === 0 &&
+          !isLoadingExistentTags && (
+            <div className="flex min-h-6 w-full items-center justify-center">
+              <p className="text-muted-foreground text-xs font-medium">
+                nothing here yet
+              </p>
+            </div>
+          )}
       </CommandGroup>
     </CommandList>
   )

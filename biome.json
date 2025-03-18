@@ -12,6 +12,9 @@
       "a11y": {
         "noSvgWithoutTitle": "off"
       },
+      "correctness": {
+        "noChildrenProp": "off"
+      },
       "suspicious": {
         "useAwait": "off"
       },

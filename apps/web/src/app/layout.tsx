@@ -5,7 +5,7 @@ import type { Viewport } from "next/types"
 import { ThemeProvider } from "next-themes"
 
 import { Toaster } from "@/components/ui/sonner"
-import { ENABLE_REACT_SCAN, VERCEL_ENV_PROD } from "@/constants"
+import { ENABLE_REACT_SCAN, VERCEL_ENV_PROD } from "@/constants/common"
 import { cn } from "@/lib/utils"
 import { QueryProvider } from "@/providers/query-provider"
 import { fontMono, fontSans } from "@/styles/fonts"

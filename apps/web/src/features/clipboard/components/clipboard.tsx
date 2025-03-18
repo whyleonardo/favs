@@ -38,8 +38,10 @@ export const Clipboard = () => {
   }, [useClipboard?.setClipboardHistory])
 
   return (
-    <Credenza open={open} onOpenChange={setOpen}>
-      <CreateNewLinkModal />
-    </Credenza>
+    <>
+      <Credenza open={open} onOpenChange={setOpen}>
+        <CreateNewLinkModal />
+      </Credenza>
+    </>
   )
 }
