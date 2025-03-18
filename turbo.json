@@ -23,7 +23,8 @@
         "GITHUB_OAUTH_CLIENT_SECRET",
         "GITHUB_OAUTH_CLIENT_ID",
         "BETTER_AUTH_SECRET",
-        "ORIGINS"
+        "ORIGINS",
+        "FLAGS_SECRET"
       ]
     },
     "lint": {
