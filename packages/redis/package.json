@@ -1,0 +1,27 @@
+{
+  "name": "@grek/redis",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@grek/env": "workspace:*",
+    "@grek/ts-config": "workspace:*",
+    "@types/node": "22.13.1",
+    "typescript": "5.7.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "bun run rm -rf dist *.tsbuildinfo",
+    "dev": "tsc -w -p tsconfig.build.json",
+    "typecheck": "tsc"
+  },
+  "type": "module",
+  "dependencies": {
+    "@upstash/redis": "1.34.6"
+  }
+}

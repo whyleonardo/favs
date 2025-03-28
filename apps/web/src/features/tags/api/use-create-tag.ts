@@ -4,7 +4,7 @@ import {
   type CreateTagRequest,
   type CreateTagResponse,
   createTag,
-} from "@/features/tags/http/create-tag"
+} from "@/features/tags/services/create-tag"
 import type { Tag } from "@/features/tags/types"
 
 import { toast } from "sonner"

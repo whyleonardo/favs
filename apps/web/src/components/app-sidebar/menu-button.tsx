@@ -72,7 +72,10 @@ export const MenuButton = ({ navItem }: NavItem) => {
       )}
     >
       <SidebarMenuButton
-        className="cursor-pointer"
+        className={cn(
+          "cursor-pointer",
+          isActive && "!bg-secondary hover:!bg-secondary/80 transition-colors"
+        )}
         tooltip={navItem.title}
         isActive={isActive}
         onClick={onClick}
@@ -83,7 +86,7 @@ export const MenuButton = ({ navItem }: NavItem) => {
           <Icon
             className={cn(
               "text-muted-foreground transition-colors",
-              isActive && "text-teal-400",
+              isActive && "text-secondary-foreground",
               isActionSignOut && "text-destructive"
             )}
           />

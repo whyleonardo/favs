@@ -21,8 +21,7 @@ export const Clipboard = () => {
         useClipboard?.setClipboardHistory(clipboard)
       }
       toast.info("we detected a link in your clipboard", {
-        className: "font-mono",
-        duration: 10000,
+        duration: 5000,
         action: (
           <Button
             variant="outline"

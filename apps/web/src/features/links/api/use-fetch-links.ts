@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 
-import { fetchLinks } from "@/features/links/http/fetch-links"
+import { fetchLinks } from "@/features/links/services/fetch-links"
 
 export const fetchLinksQueryKey = (params?: unknown[]) =>
   ["links", { url: "GET /api/links" }, ...(params ? [params] : [])] as const

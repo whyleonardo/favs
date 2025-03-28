@@ -1,20 +1,16 @@
 "use client"
 
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+import { useState } from "react"
+
 import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { useDeleteLink } from "@/features/links/api/use-delete-link"
 
-import { Loader2, TrashIcon } from "lucide-react"
-
-import { useDeleteLink } from "../api/use-delete-link"
+import { Loader2, MoreVerticalIcon, TrashIcon } from "lucide-react"
 
 interface LinkCardActionsProps {
   linkId: string
@@ -38,40 +34,19 @@ export const LinkCardActions = ({ linkId }: LinkCardActionsProps) => {
         <PencilIcon className="size-3.5" />
       </Button> */}
 
-      <AlertDialog>
-        <AlertDialogTrigger asChild>
-          <Button
-            tabIndex={-1}
-            autoFocus={false}
-            size="sm-icon"
-            variant="outline"
-          >
-            <TrashIcon className="text-destructive size-3.5" />
-          </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="!max-w-[450px]">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>cancel</AlertDialogCancel>
-            <Button
-              variant="destructive"
-              disabled={isPendingDeleteLink}
-              onClick={handleDeleteLink}
-            >
-              delete
-              {isPendingDeleteLink && (
-                <Loader2 className="size-3.5 animate-spin" />
-              )}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <Button
+        size="sm-icon"
+        variant="ghost"
+        className="text-muted-foreground opacity-40 transition-opacity hover:opacity-100"
+        disabled={isPendingDeleteLink}
+        onClick={handleDeleteLink}
+      >
+        {isPendingDeleteLink ? (
+          <Loader2 className="size-3.5 animate-spin" />
+        ) : (
+          <TrashIcon className="text-destructive size-3.5" />
+        )}
+      </Button>
     </div>
   )
 }

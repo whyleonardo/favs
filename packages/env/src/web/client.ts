@@ -8,6 +8,8 @@ export const env = createEnv({
   extends: [sharedEnv],
   server: {
     FLAGS_SECRET: z.string(),
+    UPSTASH_REDIS_REST_URL: z.string().url(),
+    UPSTASH_REDIS_REST_TOKEN: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_APP_BASE_URL: z.string().url(),

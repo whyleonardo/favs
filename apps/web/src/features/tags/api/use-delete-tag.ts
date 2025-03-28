@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import { deleteTag } from "@/features/tags/http/delete-tag"
+import { deleteTag } from "@/features/tags/services/delete-tag"
 import type { Tag } from "@/features/tags/types"
 
 import { toast } from "sonner"
