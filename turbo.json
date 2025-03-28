@@ -24,7 +24,9 @@
         "GITHUB_OAUTH_CLIENT_ID",
         "BETTER_AUTH_SECRET",
         "ORIGINS",
-        "FLAGS_SECRET"
+        "FLAGS_SECRET",
+        "UPSTASH_REDIS_REST_URL",
+        "UPSTASH_REDIS_REST_TOKEN"
       ]
     },
     "lint": {
