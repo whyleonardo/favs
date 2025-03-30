@@ -25,6 +25,7 @@
     "db:studio": "drizzle-kit studio",
     "db:up": "drizzle-kit up",
     "dev": "tsc -w -p tsconfig.build.json",
+    "migrate": "drizzle-kit generate && drizzle-kit push:pg",
     "typecheck": "tsc"
   },
   "dependencies": {

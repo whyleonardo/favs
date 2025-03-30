@@ -15,6 +15,7 @@
     "format": "bun format:write",
     "format:check": "prettier \"**/*\" --ignore-unknown --list-different",
     "format:write": "prettier \"**/*\" --ignore-unknown --list-different --write",
+    "postinstall": "turbo migrate",
     "lint": "turbo lint",
     "migrate": "cd packages/db && npx drizzle-kit generate && npx drizzle-kit push",
     "turbo": "turbo dev"

@@ -44,6 +44,13 @@
         ".env"
       ]
     },
-    "clean": { "cache": false }
+    "clean": { "cache": false },
+    "migrate": {
+      "cache": false,
+      "dependsOn": ["^build"],
+      "outputs": [],
+      "env": ["DATABASE_URL"],
+      "inputs": ["packages/db/drizzle", "packages/db/src/schemas/**"]
+    }
   }
 }
