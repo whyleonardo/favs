@@ -1,1 +1,20 @@
-export type Tag = { id: string; name: string; icon: string }
+type TagColor =
+  | "red"
+  | "orange"
+  | "amber"
+  | "yellow"
+  | "lime"
+  | "green"
+  | "emerald"
+  | "teal"
+  | "cyan"
+  | "sky"
+  | "blue"
+  | "indigo"
+  | "violet"
+  | "purple"
+  | "fuchsia"
+  | "pink"
+  | "rose"
+
+export type Tag = { id: string; name: string; icon: string; color: TagColor }

@@ -19,6 +19,8 @@ const badgeVariants = cva(
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         tag: "rounded-full font-medium select-none",
+        tagOutline:
+          "rounded-full font-medium select-none bg-transparent ring-1 ring ring-muted-foreground/15",
       },
       color: {
         red: "bg-red-100 text-red-500 dark:bg-red-950 stroke-red-500",

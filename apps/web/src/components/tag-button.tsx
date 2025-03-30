@@ -42,7 +42,7 @@ export const TagButton = ({
         )
       : setSelectedTags((prev) => [
           ...prev,
-          { icon: tag.icon, id: tag.id, name: tag.name },
+          { icon: tag.icon, id: tag.id, name: tag.name, color: tag.color },
         ])
   }
 
@@ -51,11 +51,10 @@ export const TagButton = ({
       type="button"
       layout
       className={badgeVariants({
-        variant: tagIsSelected ? "default" : "outline",
-        className: cn(
-          "inline-flex w-full cursor-pointer items-center !px-2 !py-0.5 !transition-colors",
-          className
-        ),
+        variant: tagIsSelected ? "tag" : "tagOutline",
+        color: tagIsSelected ? tag.color : undefined,
+        size: "tag",
+        className: cn("cursor-pointer", className),
       })}
       onClick={onClick}
       initial={{ opacity: 0, scale: 0.1 }}
@@ -68,12 +67,7 @@ export const TagButton = ({
         mass: 0.5,
       }}
     >
-      <Icon
-        className={cn(
-          "!size-4",
-          tagIsSelected ? "stroke-background" : "stroke-foreground"
-        )}
-      />
+      <Icon className={cn("!size-3", !tagIsSelected && "stroke-foreground")} />
       {tag.name}
     </motion.button>
   )

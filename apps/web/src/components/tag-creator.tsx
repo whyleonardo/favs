@@ -290,7 +290,7 @@ const TagCreatorCommandIconSelectPopover = () => {
                         onClick={onHandleChangeIcon(name)}
                       >
                         {/* @ts-ignore */}
-                        <Icon className="size-4" />
+                        <Icon className="stroke-foreground size-4" />
                       </Button>
                     </TooltipTrigger>
 
@@ -338,6 +338,7 @@ const TagCreatorCommandInput = ({
           icon,
           id,
           name: value,
+          color: "blue",
         },
       ])
 
@@ -393,6 +394,7 @@ const TagCreatorCommandContent = ({
         icon,
         id,
         name: tagNameValue,
+        color: "blue",
       },
     ])
 

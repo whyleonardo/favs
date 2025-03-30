@@ -7,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
-import { COLORS } from "@/features/app-colors/utils"
 import type { LinkWithTags } from "@/features/links/types"
 import { cn } from "@/lib/utils"
 import { formatDate } from "@/utils/format-date"
@@ -55,14 +54,14 @@ export const LinkCardContent = ({ link }: LinkCardProps) => {
             {link.tags.map((tag, index) => {
               const Icon = tagIconsOptions[tag.icon as TagIconOption]
 
-              const randomColor = Math.ceil(Math.random() * COLORS.length)
+              const tagColor = tag.color
 
               return (
                 <Badge
                   key={tag.id}
                   variant="tag"
                   size="tag"
-                  color={COLORS[randomColor]}
+                  color={tagColor}
                   className={cn(index > 2 && "hidden")}
                 >
                   <Icon className="mr-1 size-3" />
