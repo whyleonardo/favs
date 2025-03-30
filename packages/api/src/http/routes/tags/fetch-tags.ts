@@ -79,6 +79,7 @@ export const fetchTags = new OpenAPIHono().openapi(route, async (c) => {
         id: true,
         name: true,
         icon: true,
+        color: true,
       },
       where: eq(tagsTable.userId, userId),
     })

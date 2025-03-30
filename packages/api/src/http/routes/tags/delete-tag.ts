@@ -64,8 +64,7 @@ export const deleteTag = new OpenAPIHono().openapi(route, async (c) => {
     await db.delete(tagsTable).where(eq(tagsTable.id, tagId))
 
     return c.body(null, 204)
-  } catch (err) {
-    console.error(err)
+  } catch {
     return c.json(
       {
         message: "Unexpected Error",

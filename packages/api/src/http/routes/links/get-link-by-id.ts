@@ -99,9 +99,10 @@ export const getLinkById = new OpenAPIHono().openapi(route, async (c) => {
           with: {
             tag: {
               columns: {
+                id: true,
                 name: true,
                 icon: true,
-                id: true,
+                color: true,
               },
             },
           },

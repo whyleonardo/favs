@@ -20,6 +20,7 @@ const route = createRoute({
             id: true,
             icon: true,
             name: true,
+            color: true,
           }),
         },
       },
@@ -73,7 +74,7 @@ export const createTag = new OpenAPIHono().openapi(route, async (c) => {
   const sessionUser = c.get("user")
   const userId = sessionUser?.id as string
 
-  const { id, icon, name } = c.req.valid("json")
+  const { id, icon, name, color } = c.req.valid("json")
 
   if (!userId) {
     return c.json(
@@ -90,6 +91,7 @@ export const createTag = new OpenAPIHono().openapi(route, async (c) => {
       name,
       icon,
       userId,
+      color,
     })
 
     if (!tag) {
