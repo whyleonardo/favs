@@ -255,27 +255,27 @@ const TagCreatorCommandIconSelectPopover = () => {
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-64"
+        className="w-64 p-0 pb-2"
         side="top"
         align="start"
         sideOffset={16}
         alignOffset={-12}
       >
-        <div className="relative">
+        <div className="relative p-4 pb-0">
           <Input
             value={filterIconsValue}
             onChange={setFilterIconsValue}
             className="border-muted-foreground/10 peer ps-9 text-xs placeholder:text-xs"
-            placeholder="search icon"
+            placeholder="Search icon"
             type="text"
           />
-          <div className="text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+          <div className="text-muted-foreground/80 p pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-6 pt-4 peer-disabled:opacity-50">
             <SearchIcon className="size-4" aria-hidden="true" />
           </div>
         </div>
 
-        <ScrollArea className="h-fit w-full rounded-md">
-          <div className="mt-2 flex flex-wrap gap-2">
+        <ScrollArea className="w-full rounded-md">
+          <div className="mb-2 mt-2 flex h-40 flex-wrap gap-2 px-4 pb-2">
             {icons.map(({ icon, name }) => {
               const Icon = icon
 
