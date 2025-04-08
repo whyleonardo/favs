@@ -16,7 +16,10 @@ const AuthenticatedLayout = ({ children }: AuthenticatedLayoutProps) => {
       <AppSidebar />
       <main className="min-h-screen w-full p-2">
         {children}
-        <SidebarTrigger className="absolute bottom-4 left-4 size-10 rounded-full transition-colors" />
+        <SidebarTrigger
+          variant="default"
+          className="fixed bottom-4 left-4 size-10 rounded-full transition-colors"
+        />
         <Clipboard />
 
         {!VERCEL_ENV_PROD && <ColorsWidget />}

@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Typography } from "@/components/ui/typography"
 import { type TagIconOption, tagIconsOptions } from "@/config/tag-icons-options"
 import type { LinkWithTags } from "@/features/links/types"
 import { cn } from "@/lib/utils"
@@ -44,9 +45,9 @@ export const LinkCardContent = ({ link }: LinkCardProps) => {
 
       <CardContent className="flex flex-col justify-between">
         {link.description && (
-          <p className="text-muted-foreground dark:text-muted-foreground/90 line-clamp-3 text-sm">
+          <Typography component="p" variant="muted">
             {link.description}
-          </p>
+          </Typography>
         )}
 
         {linkContainTags && (

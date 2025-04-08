@@ -38,6 +38,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { Typography } from "@/components/ui/typography"
 import {
   type Icon,
   type TagIconOption,
@@ -111,9 +112,9 @@ const TagCreator = memo(({ children }: { children: ReactNode }) => {
 
       {selectedTags.length === 0 ? (
         <div className="flex min-h-6 w-full items-center justify-center">
-          <p className="text-muted-foreground text-xs font-medium">
+          <Typography component="p" variant="muted">
             No tags selected
-          </p>
+          </Typography>
         </div>
       ) : (
         <motion.div
@@ -249,6 +250,7 @@ const TagCreatorCommandIconSelectPopover = () => {
               initial={{ opacity: 0, scale: 0.1 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.5 }}
+              className="stroke-foreground"
             />
           </AnimatePresence>
         </Button>
@@ -286,11 +288,11 @@ const TagCreatorCommandIconSelectPopover = () => {
                       <Button
                         variant="outline"
                         size="icon"
-                        className="rounded-full"
+                        className="has-[svg]:!fill-foreground rounded-full"
                         onClick={onHandleChangeIcon(name)}
                       >
                         {/* @ts-ignore */}
-                        <Icon className="stroke-foreground size-4" />
+                        <Icon className={cn("stroke-foreground size-4")} />
                       </Button>
                     </TooltipTrigger>
 
@@ -445,9 +447,9 @@ const TagCreatorCommandContent = ({
           existentTags.length === 0 &&
           !isLoadingExistentTags && (
             <div className="flex min-h-6 w-full items-center justify-center">
-              <p className="text-muted-foreground text-xs font-medium">
-                nothing here yet
-              </p>
+              <Typography component="p" variant="muted">
+                Nothing here yet
+              </Typography>
             </div>
           )}
       </CommandGroup>

@@ -36,7 +36,7 @@ const badgeVariants = cva(
         teal: "bg-teal-100 text-teal-500 dark:bg-teal-950 stroke-teal-500",
         cyan: "bg-cyan-100 text-cyan-500 dark:bg-cyan-950 stroke-cyan-500",
         sky: "bg-sky-100 text-sky-500 dark:bg-sky-950 stroke-sky-500",
-        blue: "bg-blue-100 text-blue-500 dark:bg-blue-950 stroke-blue-500",
+        blue: "bg-blue-100 text-blue-500 dark:bg-blue-950 stroke-blue-500 [&:not(:has(lucide))]:fill-blue-500",
         indigo:
           "bg-indigo-100 text-indigo-500 dark:bg-indigo-950 stroke-indigo-500",
         violet:

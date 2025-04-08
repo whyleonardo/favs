@@ -21,7 +21,7 @@ export const AppSidebar = () => {
       <SidebarHeader>
         <SidebarMenuItem className="list-none">
           <div className="h-8 p-2">
-            <Icons.shadcn />
+            <Icons.shadcn className="stroke-muted-foreground" />
           </div>
         </SidebarMenuItem>
       </SidebarHeader>

@@ -6,6 +6,7 @@ import {
   CredenzaClose,
   CredenzaFooter,
 } from "@/components/ui/credenza"
+import { Typography } from "@/components/ui/typography"
 import { CreateLinkForm } from "@/features/links/components/forms/create-link-form"
 
 export const createNewLinkSteps = [
@@ -20,7 +21,9 @@ export const createNewLinkSteps = [
       return (
         <>
           <CredenzaBody className="mb-6">
-            <p>create a new link with the url on your clipboard?</p>
+            <Typography>
+              create a new link with the url on your clipboard?
+            </Typography>
           </CredenzaBody>
           <CredenzaFooter>
             <CredenzaClose asChild>

@@ -3,6 +3,7 @@ import type React from "react"
 
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Typography } from "@/components/ui/typography"
 import { useFieldContext } from "@/lib/form"
 import { cn } from "@/lib/utils"
 
@@ -79,7 +80,9 @@ export const FormInput = ({
         {isErrorOnField && <ErrorMessage errors={field.state.meta.errors} />}
 
         {helperText && !isErrorOnField && (
-          <p className="text-muted-foreground text-xs">{helperText}</p>
+          <Typography component="p" variant="muted" className="text-xs">
+            {helperText}
+          </Typography>
         )}
       </div>
     </div>
