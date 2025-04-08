@@ -19,20 +19,21 @@ export const Clipboard = () => {
     getClipboard().then((clipboard) => {
       if (clipboard) {
         useClipboard?.setClipboardHistory(clipboard)
+
+        toast.info("we detected a link in your clipboard", {
+          duration: 5000,
+          action: (
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs"
+              onClick={() => setOpen(true)}
+            >
+              create link
+            </Button>
+          ),
+        })
       }
-      toast.info("we detected a link in your clipboard", {
-        duration: 5000,
-        action: (
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs"
-            onClick={() => setOpen(true)}
-          >
-            create link
-          </Button>
-        ),
-      })
     })
   }, [useClipboard?.setClipboardHistory])
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 import { createFormHook } from "@tanstack/react-form"
 
@@ -19,9 +19,10 @@ import {
   createLinkSchema,
 } from "@/features/clipboard/types"
 import { useCreateLink } from "@/features/links/api/use-create-link"
+import { useStore } from "@/hooks/use-store"
 import { fieldContext, formContext } from "@/lib/form"
-
-import { z } from "zod"
+import { clipboardStore } from "@/store/clipboard-store"
+import { removeProtocolFromUrl } from "@/utils/remove-protocol-from-url"
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
@@ -38,6 +39,7 @@ const { useAppForm } = createFormHook({
 
 export const CreateLinkForm = () => {
   const { mutate, isPending: isCreatingLink } = useCreateLink()
+  const useClipboard = useStore(clipboardStore, (state) => state)
 
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -50,15 +52,17 @@ export const CreateLinkForm = () => {
     } as CreateLinkFormData,
     validators: {
       onSubmit: createLinkSchema,
-      onChange: createLinkSchema,
     },
     onSubmit: ({ value }) => {
-      // Do something with form data
+      const url = value.url.startsWith("https://")
+        ? removeProtocolFromUrl(value.url)
+        : value.url
+
       mutate(
         {
           json: {
             title: value.title,
-            url: `https://${value.url}`,
+            url,
             description: value.description,
             tags: value.tags ? value.tags.map((tag) => tag) : [],
           },
@@ -66,11 +70,25 @@ export const CreateLinkForm = () => {
         {
           onSuccess: () => {
             closeButtonRef.current?.click()
+            useClipboard?.setClipboardHistory("")
           },
         }
       )
     },
   })
+
+  useEffect(() => {
+    const clipboard = useClipboard?.clipboardHistory
+    if (clipboard) {
+      if (clipboard.startsWith("https://")) {
+        form.setFieldValue("url", removeProtocolFromUrl(clipboard))
+
+        return
+      }
+
+      form.setFieldValue("url", clipboard)
+    }
+  }, [useClipboard?.clipboardHistory, form.setFieldValue])
 
   return (
     <form
