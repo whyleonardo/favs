@@ -10,7 +10,7 @@ export const LinksContainer = () => {
   return (
     <div className="max-w-8xl mx-auto flex flex-wrap items-center justify-center gap-4 px-2 sm:px-0">
       {links?.map((link) => (
-        <LinkCard key={link.id}>
+        <LinkCard key={link.id} linkId={link.id}>
           <LinkCardContent link={link} />
         </LinkCard>
       ))}
