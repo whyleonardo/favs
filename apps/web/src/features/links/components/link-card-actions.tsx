@@ -1,16 +1,9 @@
 "use client"
 
-import { useState } from "react"
-
 import { Button } from "@/components/ui/button"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import { useDeleteLink } from "@/features/links/api/use-delete-link"
 
-import { Loader2, MoreVerticalIcon, TrashIcon } from "lucide-react"
+import { Loader2, TrashIcon } from "lucide-react"
 
 interface LinkCardActionsProps {
   linkId: string
@@ -30,10 +23,6 @@ export const LinkCardActions = ({ linkId }: LinkCardActionsProps) => {
 
   return (
     <div className="flex items-center gap-1">
-      {/* <Button tabIndex={-1} size="sm-icon" variant="ghost">
-        <PencilIcon className="size-3.5" />
-      </Button> */}
-
       <Button
         size="sm-icon"
         variant="ghost"
