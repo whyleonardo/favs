@@ -23,9 +23,6 @@ export const auth = betterAuth({
       clientSecret: authEnv.GITHUB_OAUTH_CLIENT_SECRET,
     },
   },
-  advanced: {
-    cookiePrefix: "favs-app",
-  },
 })
 
 export type AuthType = typeof auth
