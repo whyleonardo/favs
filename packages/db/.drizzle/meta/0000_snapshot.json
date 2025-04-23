@@ -1,5 +1,5 @@
 {
-  "id": "3ff1199c-9d26-4408-b726-1fa0ba429989",
+  "id": "284c5ddd-90c8-413e-9255-1d3c8e248f3e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -331,6 +331,14 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "tag_color",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'blue'"
         }
       },
       "indexes": {},
@@ -437,7 +445,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "links_to_tags_tag_id_tags_id_fk": {
@@ -450,7 +458,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -469,7 +477,31 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.tag_color": {
+      "name": "tag_color",
+      "schema": "public",
+      "values": [
+        "red",
+        "orange",
+        "amber",
+        "yellow",
+        "lime",
+        "green",
+        "emerald",
+        "teal",
+        "cyan",
+        "sky",
+        "blue",
+        "indigo",
+        "violet",
+        "purple",
+        "fuchsia",
+        "pink",
+        "rose"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},

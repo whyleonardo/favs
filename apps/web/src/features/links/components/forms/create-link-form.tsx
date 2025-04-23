@@ -56,7 +56,7 @@ export const CreateLinkForm = () => {
     onSubmit: ({ value }) => {
       const url = value.url.startsWith("https://")
         ? removeProtocolFromUrl(value.url)
-        : value.url
+        : `https://${value.url}`
 
       mutate(
         {

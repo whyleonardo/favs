@@ -4,16 +4,13 @@ import { env } from "@grek/env/web"
 
 import { betterAuth } from "better-auth"
 import { drizzleAdapter } from "better-auth/adapters/drizzle"
-import { openAPI } from "better-auth/plugins"
+
+import { openAPIPlugin, stripePlugin } from "./plugins"
 
 export const auth = betterAuth({
   trustedOrigins: [env.NEXT_PUBLIC_APP_BASE_URL],
   secret: authEnv.BETTER_AUTH_SECRET,
-  plugins: [
-    openAPI({
-      path: "/docs",
-    }),
-  ],
+  plugins: [openAPIPlugin, stripePlugin],
   database: drizzleAdapter(db, {
     provider: "pg",
   }),

@@ -28,7 +28,7 @@ export const AppSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="h-[calc(100svh-5.825rem)]">
+            <SidebarMenu className="h-[calc(100svh-4.985rem)] md:h-[calc(100svh-5.825rem)]">
               {sidebarNav.map((item) => (
                 <MenuButton key={`${item.title}-${item.type}`} navItem={item} />
               ))}

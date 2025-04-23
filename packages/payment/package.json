@@ -1,8 +1,5 @@
 {
-  "name": "@grek/redis",
-  "version": "0.0.0",
-  "private": true,
-  "type": "module",
+  "name": "@grek/payment",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -16,7 +13,8 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@upstash/redis": "1.34.6"
+    "@grek/env": "workspace:*",
+    "stripe": "17.7.0"
   },
   "devDependencies": {
     "@grek/env": "workspace:*",
